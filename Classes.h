@@ -55,14 +55,16 @@ typedef struct event_property_effect
 }Event_property_effect;
 
 
-enum Player_walk_state = {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
-enum Player_activity_state = {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
+
 
 class Player
 {
     public:
         Player();
         ~Player();
+
+        enum Player_walk_state = {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
+        enum Player_activity_state = {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
 
         // the shape and position of player
         string name;
@@ -83,7 +85,7 @@ class Player
         unsigned int attack_range; 
 };
 
-enum Object_state = {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
+
 
 
 class PKU_object
@@ -92,6 +94,8 @@ class PKU_object
         PKU_object();
         ~PKU_object();
 
+
+        enum Object_state = {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
         string name;
         unsigned int index;
         Vector2 position;
@@ -105,18 +109,19 @@ class PKU_object
 };
 
 
-enum Event_place = {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
 
 class PKU_event
 {
     public:
         PKU_event();
         ~PKU_event();
-    
+
+        enum Event_place = {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
+
         string name;
         unsigned int index;
         string information;
-        
+
     private:
         Event_place place;
         unsigned int max_human;
