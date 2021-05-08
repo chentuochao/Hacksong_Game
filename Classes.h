@@ -66,6 +66,7 @@ class Player
 
         // the shape and position of player
         string name;
+        unsigned int index;
         Image player_image;
         Rectangle player_rectangle;
         Color player_color;
@@ -92,6 +93,7 @@ class PKU_object
         ~PKU_object();
 
         string name;
+        unsigned int index;
         Vector2 position;
         Image object_image;
         Rectangle size;
@@ -112,6 +114,7 @@ class PKU_event
         ~PKU_event();
     
         string name;
+        unsigned int index;
     
     private:
         Event_place place;
