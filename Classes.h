@@ -115,7 +115,8 @@ class PKU_event
     
         string name;
         unsigned int index;
-    
+        string information;
+        
     private:
         Event_place place;
         unsigned int max_human;
