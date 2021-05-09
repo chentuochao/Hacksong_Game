@@ -228,15 +228,29 @@ void PKU_event::begin_competition(){
         temp_player->update_happiness(property_effect.happiness_effect);
         temp_player->update_reputation(property_effect.reputation_effect);
     }
-    else if(name == string("midterm exam")){
+    else if(name == string("Mid Exam")){
+        for (int player_index=0; player_index < (int)player_number ; player_index++){
+            Player* temp_player = player_vector[attend_index];
+            temp_player->update_knowledge(property_effect.knowledge_effect);
+            temp_player->update_happiness(property_effect.happiness_effect);
+            temp_player->update_reputation(property_effect.reputation_effect);
+        }
          // to be continue
     }
-    else if(name == string("final exam")){
+    /*
+    else if(name == string("sports meeting")){
         // to be continue
     }
-    else if(name == string("sports competition")){
+    else if(name == string("sStudent Work")){
         // to be continue
     }
+    else if(name == string("Club Activity")){
+        // to be continue
+    }
+    else if(name == string("Final Exam")){
+        // to be continue
+    }
+    */
     // reset human number
     wait_human_num = 0;
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));

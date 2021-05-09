@@ -183,12 +183,12 @@ class PKU_event
         int time_span;
 
         void begin_competition();
-        bool check_event_begin(double current_time);
+        bool check_event_begin(int current_time);
         bool player_want_to_join(Player p);
         void draw_event();
         
 
-    private:
+
         bool attend_players[MAX_PLAYER];
         Event_property_requirement requirement; 
         Event_property_effect property_effect;
