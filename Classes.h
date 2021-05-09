@@ -79,8 +79,6 @@ class Player
         Image player_image;
         Rectangle player_rectangle;
         Color player_color;
-
-        Vector2 position; // Current positions
         float direction; // the direction of human body: degree
 
         void update_activity_state(Player_activity_state new_state); // update the activity state
@@ -118,18 +116,17 @@ class Player
 };
 
 
-enum Object_state {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
+enum Object_state {NOT_APPEAR, UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
 
 
 class PKU_object
 {
     public:
-        PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
+        PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
         string name;
         int index;
-        Vector2 position;
         Image object_image;
         Rectangle size;
 
@@ -151,12 +148,11 @@ class PKU_object
         Interaction_effect effect_to_other; // effect to others
 };
 
-
+enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
 
 class PKU_event
 {
     public:
-        enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
         PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, unsigned int start_time0, unsigned int time_span0, Event_property_effect property_effect0);
         ~PKU_event();
 
@@ -189,13 +185,13 @@ class PKU_event
 };
 
 extern unsigned int player_number;
-extern Player* player_vector;
+extern Player* player_vector[MAX_PLAYER];
 
 extern unsigned int object_number;
-extern PKU_object* object_vector;
+extern PKU_object* object_vector[MAX_OBJECT];
 
 extern unsigned int event_number;
-extern PKU_event* event_vector;
+extern PKU_event* event_vector[MAX_EVENT];
  
 
 #endif
