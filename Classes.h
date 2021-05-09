@@ -141,8 +141,6 @@ class PKU_object
         Texture2D object_image;
         Rectangle size;
 
-        int chasing_player; //The player it will chase if it is flying.
-
         void update_state(Object_state new_state);
         Object_state get_state();
 

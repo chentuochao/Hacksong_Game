@@ -45,7 +45,6 @@ void Game::myDrawGame(){
 
                     std::cout<<object_vector[obj_index]->get_state()<<std::endl;
                     std::cout<<NOT_APPEAR<<std::endl;
-                    /*
                     if(object_vector[obj_index]->get_state() == NOT_APPEAR){
                         object_vector[obj_index]->update_state(UNPICKED);
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
@@ -54,7 +53,7 @@ void Game::myDrawGame(){
                         //DrawRectangleV(obj_pos,obj_size, BLUE);
                         DrawTexture(object_vector[obj_index]->object_image, obj_pos.x, obj_pos.y,WHITE);
                         continue;
-                    }*/
+                    }
                     if (object_vector[obj_index]->get_state() == UNPICKED){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
