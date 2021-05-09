@@ -31,11 +31,13 @@ void Game::init_player_list(){
 
 void Game::init_object_list(){
     // initialize one object
-    Image image = LoadImage("object0.png"); 
+    Image image = LoadImage("icons/book.png"); 
+    ImageResize(&image, 30, 30);
+    Texture2D Text = LoadTextureFromImage(image);
     Rectangle range = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self = {1, 1}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction = {-5, +10, -5, +1, -20, 0}; //my_knowledge_change, my_happiness_change, my_reputation_change, others_knowledge_change, others_happiness_change, others_reputation_change
-    object_vector[0] = new PKU_object("gaoshu", 0, image, range, my_self, my_interaction);
+    object_vector[0] = new PKU_object("gaoshu", 0, Text, range, my_self, my_interaction);
     object_number ++;
 }
 
