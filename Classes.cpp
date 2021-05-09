@@ -7,7 +7,7 @@ using namespace std;
 
 /*-----------------------------------   the functions for class "Player" --------------------------------*/
 // initialize the player class
-Player::Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0)
+Player::Player(unsigned int index0,string name0,  Vector2 speed0, vector<Texture2D> player_image0, Rectangle player_rectangle0, Color player_color0)
 {
     name = name0;
     index = index0;
@@ -150,7 +150,7 @@ void Player::draw_player(){
 }
 
 /*---------------------------------   the functions for class "PKU_object" --------------------------------*/
-PKU_object::PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
+PKU_object::PKU_object(string name0, unsigned int index0, Texture2D object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
     name = name0;
     index = index0;
     object_image = object_image0;
