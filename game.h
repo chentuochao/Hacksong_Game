@@ -22,6 +22,8 @@ public:
     static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
+    typedef enum { TITLE, GAMEPLAY, ENDING } GameScreen;
+    GameScreen currentScreen = TITLE;
     Camera camera;
 
     int framsCounter;
