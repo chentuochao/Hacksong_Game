@@ -20,8 +20,8 @@ void Game::myUpdate(){
 
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
-            object_vector[obj_index]->size.x = GetRandomValue(0, screenWidth);
-            object_vector[obj_index]->size.y = GetRandomValue(0, screenHeight);
+            object_vector[obj_index]->size.x = GetRandomValue(0, mapWidth);
+            object_vector[obj_index]->size.y = GetRandomValue(0, mapHeight);
         }
         
 
