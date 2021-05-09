@@ -176,7 +176,8 @@ void PKU_object::be_picked(){
 }
 
 void PKU_object::be_throwned(){
-    update_state(THROWING);
+    update_state(NOT_APPEAR);
+    //update_state(THROWING);
 }
 
 void PKU_object::draw_object(){

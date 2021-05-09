@@ -14,6 +14,15 @@ using namespace std;
 #define MAX_OBJECT_PER_PERSON 10
 #define FPS 60
 
+typedef struct keys_info
+{
+    char move[4];
+    char change_object[2];
+    char pick;
+    char throwing;
+    char join;
+}Keys_info;
+
 typedef struct player_property
 {
 	double knowledge; // 0-100, visible to player
@@ -82,6 +91,8 @@ class Player
         Vector2 position; // Current positions
         double direction; // the direction of human body: degree
 
+        int object_in_hand;
+
         void update_activity_state(Player_activity_state new_state); // update the activity state
         Player_activity_state get_activity_state(); // get the activity state
 
@@ -108,7 +119,6 @@ class Player
         Vector2 speed; // walking speed
 
         vector<unsigned int> object_list;
-        int object_in_hand;
 
         Player_walk_state walk_state;
         Player_activity_state activity_state;
