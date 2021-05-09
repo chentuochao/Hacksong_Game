@@ -89,13 +89,25 @@ class Player
         void update_reputation(unsigned float new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
+        void pick_object(unsigned int object_index); // pick the objects
+        void change_object();  // change object
+        void update_object_effect(); // update the effect of the object in the hand
+
+        void throw_object(Player other); // throw object to other
+        void be_thrown_object(unsigned int object_index); // when be thrwon object
+
+        void attend_event(unsigned event_index);
+
+
         void draw_player();
 
     private:
         // the inside property of player
         float speed; // walking speed
 
-        vector<unsigned int> object_list;
+        vector<unsigned int> object_list[MAX_OBJECT_PER_PERSON];
+        int object_in_hand;
+
         Player_walk_state walk_state;
         Player_activity_state activity_state;
         Player_property property;
@@ -123,6 +135,9 @@ class PKU_object
 
         Self_effect get_self_effect();
         Interaction_effect get_interaction_effect();
+
+        void be_picked();
+        void be_throwned();
 
         void draw_object();
 

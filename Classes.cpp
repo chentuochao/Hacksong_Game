@@ -15,6 +15,7 @@ Player::Player(string name0, unsigned int index0, float speed0, Image player_ima
     player_rectangle = player_rectangle0;
     player_color = player_color0;
     object_list.clear();
+    object_in_hand = -1;
 
     walk_state = Player::MIDDLE;
     activity_state = Player::STAND;
@@ -50,11 +51,11 @@ float Player::get_speed(){
 }// get the walking speed
 
 void Player::update_knowledge(unsigned float new_knowledge){
-    property.knowledge = new_knowledge;
+    property.knowledge += new_knowledge;
 } // update the knowledge
 
 void Player::update_happiness(unsigned float new_happiness){
-    property.happiness = new_happiness;
+    property.happiness += new_happiness;
 } // update the happiness
 
 void Player::update_GPA(unsigned float new_GPA){
@@ -63,7 +64,7 @@ void Player::update_GPA(unsigned float new_GPA){
 
 void Player::update_reputation(unsigned float new_reputation)
 {
-    property.reputation = new_reputation;
+    property.reputation += new_reputation;
 } // update the _reputation
 
 Player_property Player::get_property(){
@@ -71,6 +72,72 @@ Player_property Player::get_property(){
 } // get the direction
 
 
+bool Player::pick_object(unsigned int object_index){
+    if(object_list.capacity() <= 0) return false;
+    else if(object_list.empty()){
+        object_list.push_back(object_index); 
+        object_in_hand = 0;
+        return true;
+    }
+    else{
+        object_list.push_back(object_index); 
+        return true;
+    }
+} // pick the objects
+
+void Player::change_object(){
+    if(object_list.empty()) object_in_hand = -1; // there is no object currently
+    else if(object_in_hand >= object_list.size() - 1) object_in_hand = 0;
+    else object_in_hand++;
+} // change object
+
+void Player::update_object_effect(){
+    if(object_in_hand == -1) return;
+    unsigned int hold_index = object_list.at(object_in_hand);
+    PKU_object hold_object = object_vector[hold_index];
+
+    update_knowledge(temp_object.effect_to_self.knowledge_change_rate/FPS);
+    update_happiness(temp_object.effect_to_self.happiness_change_rate/FPS);
+    //update_reputation(temp_object.effect_to_self.my_reputation_change);
+}
+
+void Player::throw_object(unsigned int other_index){
+    if(object_in_hand == -1) return;
+
+    unsigned int throw_index = object_list.at(object_in_hand);
+    PKU_object temp_object = object_vector[throw_index];
+    // update my property
+    update_knowledge(temp_object.effect_to_other.my_knowledge_change);
+    update_happiness(temp_object.effect_to_other.my_happiness_change);
+    update_reputation(temp_object.effect_to_other.my_reputation_change);
+
+    // remove the object from object_list
+    vector<unsigned int>::iterator erase_iter = object_list.begin() + object_in_hand;
+    object_list.erase(erase_iter);
+    if(object_list.empty()) object_in_hand = -1;
+    else object_in_hand = 0;
+    
+
+    //update others' property
+    if(other_index != -1){
+        player_vector[other_index].be_thrown_object(object_in_hand);
+    }
+
+} // throw object to other
+
+void Player::be_thrown_object(unsigned int object_index){
+    PKU_object temp_object = object_vector[object_index];
+    // update my property
+    update_knowledge(temp_object.effect_to_other.others_knowledge_change);
+    update_happiness(temp_object.effect_to_other.others_happiness_change);
+    update_reputation(temp_object.effect_to_other.others_reputation_change);
+} // when be thrwon object
+
+
+
+void Player::draw_player(){
+
+}
 
 /*---------------------------------   the functions for class "PKU_object" --------------------------------*/
 PKU_object::PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);{
@@ -81,6 +148,7 @@ PKU_object::PKU_object(string name0, unsigned int index0, Vector2 position0, Ima
     size = size0;
     effect_to_self = effect_to_self0;
     effect_to_other = effect_to_other0;
+    Object_state = UNPICKED;
 }
 
 PKU_object::~PKU_object()
@@ -100,6 +168,14 @@ Self_effect PKU_object::get_self_effect(){
 }
 Interaction_effect PKU_object::get_interaction_effect(){
     return effect_to_other;
+}
+
+void PKU_object::be_picked(){
+    update_state(PICKED);
+}
+
+void PKU_object::be_throwned(){
+    update_state(THROWING);
 }
 
 void PKU_object::draw_object(){
