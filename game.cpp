@@ -19,6 +19,7 @@ int main(void)
     SetTargetFPS(60);
     //Main game loop
     //Detect window close button or ESC key
+    
     while (!WindowShouldClose()) 
     {
         g->myUpdate();

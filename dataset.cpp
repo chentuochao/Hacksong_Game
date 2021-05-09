@@ -16,7 +16,8 @@ void Game::init_player_list(){
     player_number ++;
 
     // initialize one player
-    image = LoadImage("p1.png");  
+    image = LoadImage("icons/man-student.png");  
+    ImageResize(&image, 30, 30);
     shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color -------------------
     player_vector[1] = new Player( 1, "name1",  speed,   image, shape, RED);

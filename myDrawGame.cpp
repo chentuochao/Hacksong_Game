@@ -14,10 +14,12 @@ void Game::myDrawGame(){
                 DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
                 // myDrawLines();
                 // myDrawPlayers()
-                Image p = LoadImage("icons/man-student.png");
-                ImageResize(&p,30,30);
-                Texture2D P = LoadTextureFromImage(p);
-                DrawTexture(P,500,300,WHITE);
+                
+                for (int player_index=0; player_index < (int)player_number ; player_index++){
+                    Texture2D P = LoadTextureFromImage(player_vector[player_index]->player_image);
+                    DrawTexture(P,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                                
+                    //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
+                }
                 // myDrawObjectsToPick();
                 // myDrawEventPlace();
                 // myDrawInfo();
