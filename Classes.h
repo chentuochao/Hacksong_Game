@@ -3,18 +3,19 @@
 
 #include <iostream>
 #include <string>
-#include "raylib.h"
-#include "Global_para.h"
 
+#include <game.h>
+#include "raylib.h"
+#include <vector>
 using namespace std;
 
 
 typedef struct player_property
 {
-	unsigned float knowledge; // 0-100, visible to player
-	unsigned float happiness; // 0-100, visible to player
-    unsigned float GPA; // 0-4.0, visible to player
-    unsigned float reputation; // 0-100, invisible to player
+	float knowledge; // 0-100, visible to player
+	float happiness; // 0-100, visible to player
+    float GPA; // 0-4.0, visible to player
+    float reputation; // 0-100, invisible to player
 }Player_property;
 
 
@@ -40,36 +41,37 @@ typedef struct interaction_effect
 // the requirement for different properties
 typedef struct event_property_requirement
 {
-	unsigned float knowledge_require; // 0-100, visible to player
-	unsigned float happiness_require; // 0-100, visible to player
-    unsigned float GPA_require; // 0-4.0, visible to player
-    unsigned float reputation_require; // 0-100, invisible to player
+	float knowledge_require; // 0-100, visible to player
+	float happiness_require; // 0-100, visible to player
+    float GPA_require; // 0-4.0, visible to player
+    float reputation_require; // 0-100, invisible to player
 }Event_property_requirement;
 
 // the requirement for different properties
 typedef struct event_property_effect
 {
-	unsigned float knowledge_effect; // 0-100, visible to player
-	unsigned float happiness_effect; // 0-100, visible to player
-    unsigned float GPA_effect; // 0-4.0, visible to player
-    unsigned float reputation_effect; // 0-100, invisible to player
+	float knowledge_effect; // 0-100, visible to player
+	float happiness_effect; // 0-100, visible to player
+    float GPA_effect; // 0-4.0, visible to player
+    float reputation_effect; // 0-100, invisible to player
 }Event_property_effect;
 
 
+enum Player_walk_state {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
+enum Player_activity_state {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
 
 
 class Player
 {
     public:
-        Player(string name0, unsigned int index0, float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0);
+        Player(unsigned int index0,string name0,  float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
 
-        enum Player_walk_state = {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
-        enum Player_activity_state = {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
 
         // the shape and position of player
         string name;
-        unsigned int index;
+        float max_speed;
+        int index;
         Image player_image;
         Rectangle player_rectangle;
         Color player_color;
@@ -83,10 +85,10 @@ class Player
         void update_speed(float new_speed); // update the walking speed
         float get_speed(); // get the walking speed
 
-        void update_knowledge(unsigned float new_knowledge); // update the knowledge
-        void update_happiness(unsigned float new_happiness); // update the happiness
-        void update_GPA(unsigned float new_GPA); // update the GPA
-        void update_reputation(unsigned float new_reputation); // update the _reputation
+        void update_knowledge(float new_knowledge); // update the knowledge
+        void update_happiness(float new_happiness); // update the happiness
+        void update_GPA(float new_GPA); // update the GPA
+        void update_reputation(float new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
         void draw_player();
@@ -95,14 +97,15 @@ class Player
         // the inside property of player
         float speed; // walking speed
 
-        vector<unsigned int> object_list;
+        vector<int> object_list;
         Player_walk_state walk_state;
         Player_activity_state activity_state;
         Player_property property;
-        unsigned int attack_range; 
+        int attack_range; 
 };
 
 
+enum Object_state {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
 
 
 class PKU_object
@@ -111,9 +114,8 @@ class PKU_object
         PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
-        enum Object_state = {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
         string name;
-        unsigned int index;
+        int index;
         Vector2 position;
         Image object_image;
         Rectangle size;
@@ -126,6 +128,7 @@ class PKU_object
 
         void draw_object();
 
+
     private:
         Object_state state; 
         Self_effect effect_to_self; // effect to myself
@@ -137,20 +140,21 @@ class PKU_object
 class PKU_event
 {
     public:
-        PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, float start_time0, float time_span0, Event_property_effect property_effect0);
+        enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
+        PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, unsigned int start_time0, unsigned int time_span0, Event_property_effect property_effect0);
         ~PKU_event();
 
-        enum Event_place = {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
+        
 
         string name;
         bool if_begin; // if the activity begins
-        unsigned int index;
+        int index;
         string information;
         Event_place place;
 
-        unsigned int max_human;
-        unsigned int min_human;
-        unsigned int wait_human_num;
+        int max_human;
+        int min_human;
+        int wait_human_num;
 
         float start_time;
         float time_span;
@@ -159,6 +163,7 @@ class PKU_event
         bool check_event_begin(float current_time);
         bool player_want_to_join(Player p);
         void draw_event();
+        
 
     private:
         bool attend_players[MAX_PLAYER];

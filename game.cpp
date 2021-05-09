@@ -1,10 +1,16 @@
 #include "game.h"
-#include "init.h"
+// #include "init.h"
+
+Game::Game(){
+
+}
 
 int main(void)
 {
-    InitWindow(screenWidth, screenHeight, "sample game: snake");
-    myInitGame();
+    Game *g = new Game();
+    InitWindow(g->screenWidth, g->screenHeight, "sample game: snake");
+    g->myInitGame();
+
 
 #if defined(PLATFORM_WEB)
 
@@ -18,8 +24,8 @@ int main(void)
     //Detect window close button or ESC key
     while (!WindowShouldClose()) 
     {
-        myUpdateGame();
-        myDrawGame();
+        g->myUpdate();
+        g->myDrawGame();
     }
 
 #endif

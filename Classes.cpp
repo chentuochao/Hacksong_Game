@@ -1,12 +1,13 @@
-#include "Classes.h"
+#include "game.h"
 #include <iostream>
+#include <memory.h>
 
 using namespace std;
 #define default_range 20
 
 /*-----------------------------------   the functions for class "Player" --------------------------------*/
 // initialize the player class
-Player::Player(string name0, unsigned int index0, float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0)
+Player::Player(unsigned int index0,string name0,  float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0)
 {
     name = name0;
     index = index0;
@@ -16,8 +17,8 @@ Player::Player(string name0, unsigned int index0, float speed0, Image player_ima
     player_color = player_color0;
     object_list.clear();
 
-    walk_state = Player::MIDDLE;
-    activity_state = Player::STAND;
+    walk_state = MIDDLE;
+    activity_state = STAND;
 
     attack_range = default_range;
     property.knowledge = 50;
@@ -34,7 +35,7 @@ Player::~Player()
 }
 
 Player_activity_state Player::get_activity_state(){
-    return property;
+    return activity_state;
 }
 
 void Player::update_activity_state(Player_activity_state new_state){
@@ -49,19 +50,19 @@ float Player::get_speed(){
     return speed;
 }// get the walking speed
 
-void Player::update_knowledge(unsigned float new_knowledge){
+void Player::update_knowledge(float new_knowledge){
     property.knowledge = new_knowledge;
 } // update the knowledge
 
-void Player::update_happiness(unsigned float new_happiness){
+void Player::update_happiness(float new_happiness){
     property.happiness = new_happiness;
 } // update the happiness
 
-void Player::update_GPA(unsigned float new_GPA){
+void Player::update_GPA(float new_GPA){
     property.GPA = new_GPA;
 } // update the GPA
 
-void Player::update_reputation(unsigned float new_reputation)
+void Player::update_reputation(float new_reputation)
 {
     property.reputation = new_reputation;
 } // update the _reputation
@@ -73,7 +74,7 @@ Player_property Player::get_property(){
 
 
 /*---------------------------------   the functions for class "PKU_object" --------------------------------*/
-PKU_object::PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);{
+PKU_object::PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
     name = name0;
     index = index0;
     position = position0;
@@ -141,8 +142,8 @@ void PKU_event::begin_competition(){
 
 bool PKU_event::check_event_begin(float current_time) // check if in every frame
 {
-    if(current_time >= begin_time && current_time <= begin_time + time_span && if_begin == false)  if_begin = true;
-    else if((current_time > begin_time + time_span || max_human <= 0) && if_begin == true){
+    if(current_time >= start_time && current_time <= start_time + time_span && if_begin == false)  if_begin = true;
+    else if((current_time > start_time + time_span || max_human <= 0) && if_begin == true){
         if(wait_human_num < min_human) begin_competition(); 
     }
 }
