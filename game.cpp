@@ -1,5 +1,6 @@
 #include "game.h"
 #include "raylib.h"
+#include <ctime>
 
 Game::Game(){
 
@@ -43,6 +44,7 @@ int main(void)
                 {
                     g->currentScreen = 2;
                 }
+                g->framesCounter += 1;
                 
             } break;
             case 2:

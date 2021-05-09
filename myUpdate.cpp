@@ -5,7 +5,6 @@
 //#include "game.h"
 
 void Game::myUpdate(){
-    std::cout<<"Debugging:\n";
     //关于人
     for (int player_index=0; player_index < (int)player_number ; player_index++){
         Vector2 accel = myReadPlayerControl(player_index);
@@ -13,7 +12,6 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-    std::cout<<"Debug1:\n";
     // unpicked objects position calculation
     // TODO avoid events and players
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
@@ -27,7 +25,25 @@ void Game::myUpdate(){
 
     }
     //关于要刷新的事件
-    for (int event_index=0; event_index < (int)event_number ; event_index++){
+    for (int event_index=0; event_index < event_number ; event_index++){
+        int one_start_time = 10 * event_vector[event_index]->start_time;
+        int one_time_span = 10 * event_vector[event_index]->time_span;
+        int eventalarm = 20*10;
+        std::cout<<'current state\n';
+        std::cout<<one_start_time<<std::endl;
+        std::cout<<framesCounter<<std::endl;
+        if(framesCounter < one_start_time && framesCounter > one_start_time - eventalarm){
+            eventnote = event_vector[event_index]->name + " will start!";
+            eventhappen = true;
+        }
+        else if (framesCounter > one_start_time && framesCounter < one_start_time + one_time_span){
+            eventnote = event_vector[event_index]->name + " is ongoing!";
+            eventhappen = true;
+            current_event_number =  event_index;       
+        }     
+        else{
+            eventhappen = false;
+        }   
         // myEventCalc(event_index);
     }
 }
@@ -40,7 +56,6 @@ Vector2 Game::myReadPlayerControl(int player_index){
     if (IsKeyDown(KEY_DOWN)) accel.y += KEY_ACCEL;
     if (IsKeyDown(KEY_LEFT)) accel.x -= KEY_ACCEL;
     if (IsKeyDown(KEY_RIGHT)) accel.x += KEY_ACCEL;
-    std::cout<<"Accel:"<<accel.x<<" "<<accel.y<<"\n";
     return(accel);
 
 }
