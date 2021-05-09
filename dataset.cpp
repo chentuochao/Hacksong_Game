@@ -63,7 +63,7 @@ void Game::init_object_list(){
     Rectangle range3 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self3 = {-2, 3}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction3 = {-1, 3, 0, -2, 2, 0}; 
-    object_vector[object_number] = new PKU_object("PVP", 0, image3, range3, my_self3, my_interaction3);
+    object_vector[object_number] = new PKU_object("PSP", 0, image3, range3, my_self3, my_interaction3);
     object_number ++;
 
     Image image4 = LoadImage("object4.png"); 
