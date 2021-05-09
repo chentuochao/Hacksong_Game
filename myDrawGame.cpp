@@ -34,6 +34,8 @@ void Game::myDrawGame(){
                 for(vector<unsigned int>::const_iterator citer=player_vector[0]->object_list.begin();citer!=player_vector[0]->object_list.end();citer++)
                 {
                     DrawTexture(object_vector[*citer]->object_image, 20+50*num, 890 ,WHITE );
+                    cerr<<"      "<<player_vector[0]->object_in_hand<<" "<<(*citer)<<endl;
+                    if((*citer)==player_vector[0]->object_in_hand)DrawRectangle(20+50*num, 890, 20, 20, BLUE);
                     num++;
                 }
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
