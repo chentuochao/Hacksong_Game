@@ -13,8 +13,11 @@ void Game::myDrawGame(){
                  // Draw gameplay screen
                 DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
                 // myDrawLines();
-                // myDrawPlayers();
-                
+                // myDrawPlayers()
+                Image p = LoadImage("icons/man-student.png");
+                ImageResize(&p,30,30);
+                Texture2D P = LoadTextureFromImage(p);
+                DrawTexture(P,500,300,WHITE);
                 // myDrawObjectsToPick();
                 // myDrawEventPlace();
                 // myDrawInfo();
