@@ -8,20 +8,11 @@
 #include <vector>
 using namespace std;
 
-#define MAX_PLAYER 20
+#define MAX_PLAYER 10
 #define MAX_OBJECT 100
 #define MAX_EVENT 100
 #define MAX_OBJECT_PER_PERSON 10
 #define FPS 60
-
-typedef struct keys_info
-{
-    char move[4];
-    char change_object[2];
-    char pick;
-    char throwing;
-    char join;
-}Keys_info;
 
 typedef struct player_property
 {

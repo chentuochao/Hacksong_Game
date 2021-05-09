@@ -14,7 +14,6 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-    //std::cout<<"Debug1:\n";
     // unpicked objects position calculation
     // TODO avoid events and players
     
@@ -62,27 +61,39 @@ void Game::myUpdate(){
 void Game::myGetKeyboardInfo(){
     // Now this reads player 0's info from the keyboard.
     // In multi-player version this should get all info from the
-    Keys_info[0].move[0] = (IsKeyDown(KEY_W)!=0 ? 1 : 0);
-    Keys_info[0].move[1] = (IsKeyDown(KEY_S)!=0 ? 1 : 0);
-    Keys_info[0].move[2] = (IsKeyDown(KEY_A)!=0 ? 1 : 0);
-    Keys_info[0].move[3] = (IsKeyDown(KEY_D)!=0 ? 1 : 0);
+    my_key.move[0] = (IsKeyDown(KEY_W)!=0 ? 1 : 0);
+    my_key.move[1] = (IsKeyDown(KEY_S)!=0 ? 1 : 0);
+    my_key.move[2] = (IsKeyDown(KEY_A)!=0 ? 1 : 0);
+    my_key.move[3] = (IsKeyDown(KEY_D)!=0 ? 1 : 0);
 
-    Keys_info[0].change_object[0] = (IsKeyPressed(KEY_LEFT)!=0 ? 1 : 0);
-    Keys_info[0].change_object[1] = (IsKeyPressed(KEY_RIGHT)!=0 ? 1 : 0);
+    my_key.change_object[0] = (IsKeyPressed(KEY_LEFT)!=0 ? 1 : 0);
+    my_key.change_object[1] = (IsKeyPressed(KEY_RIGHT)!=0 ? 1 : 0);
 
-    Keys_info[0].pick = (IsKeyPressed(KEY_DOWN)!=0 ? 1 : 0);
-    Keys_info[0].throwing = (IsKeyPressed(KEY_UP)!=0 ? 1 : 0);
+    my_key.pick = (IsKeyPressed(KEY_DOWN)!=0 ? 1 : 0);
+    my_key.throwing = (IsKeyPressed(KEY_UP)!=0 ? 1 : 0);
     
-    Keys_info[0].join = (IsKeyPressed(KEY_SPACE)!=0 ? 1 : 0);
+    my_key.join = (IsKeyPressed(KEY_SPACE)!=0 ? 1 : 0);
+
+    //cout << "wait recv" <<endl;
+    sock->send_data((const char*)&my_key, sizeof(Keys_info));
+    
+    sock->recvall(  (char*)return_info,   MAX_PLAYER*sizeof(Keys_info));
+    //cout << int(return_info[0].pick) << endl;
+    
+    for(int i = 0; i < player_number; ++i)
+    {
+        cout << i  << " recv " << int(return_info[i].join) <<  ' ' << int(return_info[i].change_object[0]) <<  ' ' <<int(return_info[i].join) <<  ' ' <<int(return_info[i].pick) <<  ' ' <<int(return_info[i].move[0]) << ' ' << int(return_info[i].move[1]) << ' ' << int(return_info[i].move[2])<< ' ' << int(return_info[i].move[3])<< endl;
+    }
+    
 }
 
 Vector2 Game::myReadPlayerControl(int player_index){
     //返回加速度的向量
     Vector2 accel = {0,0};
-    if (Keys_info[player_index].move[0]) accel.y -= KEY_ACCEL;
-    if (Keys_info[player_index].move[1]) accel.y += KEY_ACCEL;
-    if (Keys_info[player_index].move[2]) accel.x -= KEY_ACCEL;
-    if (Keys_info[player_index].move[3]) accel.x += KEY_ACCEL;
+    if (return_info[player_index].move[0]) accel.y -= KEY_ACCEL;
+    if (return_info[player_index].move[1]) accel.y += KEY_ACCEL;
+    if (return_info[player_index].move[2]) accel.x -= KEY_ACCEL;
+    if (return_info[player_index].move[3]) accel.x += KEY_ACCEL;
     return(accel);
 
 }
@@ -90,7 +101,7 @@ Vector2 Game::myReadPlayerControl(int player_index){
 void Game::myMovePlayer(int player_index, Vector2 accel){
     Vector2 speed = player_vector[player_index]->get_speed();
     Vector2 cur_pos = player_vector[player_index]->position;
-
+    
     //检查周围一圈，只能往没有障碍物的方向加速。
     int clear = check_player_clear(player_index, cur_pos);
     bool up_clear = (((clear >> 0) & 1) == 1);
@@ -125,7 +136,6 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
         if (speed.y > 0) speed.y = max(0.0, speed.y - stop_accel / FPS);
         if (speed.y < 0) speed.y = min(0.0, speed.y + stop_accel / FPS);
     }
-
     // 计算玩家顺滑运动会到的位置
     Vector2 target = {cur_pos.x + speed.x / FPS, 
     cur_pos.y + speed.y / FPS};
@@ -172,12 +182,10 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
             speed.x = 0;
         }
     }
-
     // Got the final speed. Now calculate the new position.
     player_vector[player_index]->update_speed(speed);
     player_vector[player_index]->position.x += (speed.x / FPS);
     player_vector[player_index]->position.y += (speed.y / FPS);
-
     // 判断是否遇到物品
     // 判断是否进入事件范围
 }
@@ -242,7 +250,7 @@ void Game::myUpdateObjectList(int player_index){
     // Pick up an item if exists
     double pickup_range = 100*100;
     double throw_range = 200*200;
-    if (Keys_info[player_index].pick == 1){
+    if (return_info[player_index].pick == 1){
         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
         for (int i=0; i < (int)object_number; i++){
@@ -258,7 +266,7 @@ void Game::myUpdateObjectList(int player_index){
             }
         }
     }
-    else if (Keys_info[player_index].throwing == 1){
+    else if (return_info[player_index].throwing == 1){
         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
         int daomeidan = -1;

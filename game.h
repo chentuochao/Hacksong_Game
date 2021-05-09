@@ -6,6 +6,7 @@
 #define SQUARE_SIZE 31
 
 #include "Classes.h"
+#include "client.h"
 #include <vector>
 using namespace std;
 
@@ -23,17 +24,18 @@ public:
     int currentScreen = 0;
 
     Camera camera;
+    Myclient* sock;
 
     int framsCounter;
     bool game_over = 0;
-    unsigned int player_number = 0;
-    unsigned int object_number = 0;
-    unsigned int event_number = 0;
+    unsigned int my_index = 0;
+    unsigned seed;
 
     static constexpr double KEY_ACCEL = 200; //Acceleration when pressing key
     double max_speed = 100;
 
-    struct keys_info Keys_info[MAX_PLAYER];
+    Keys_info my_key;
+    Keys_info return_info[MAX_PLAYER];
 
     Game();
     ~Game();
