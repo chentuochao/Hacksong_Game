@@ -13,7 +13,7 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-
+    std::cout<<"Debug1:\n";
     // unpicked objects position calculation
     // TODO avoid events and players
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
