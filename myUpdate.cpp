@@ -249,7 +249,7 @@ void Game::myUpdatePlayerState(int player_index){
 void Game::myUpdateObjectList(int player_index){
     // Pick up an item if exists
     double pickup_range = 100*100;
-    double throw_range = 200*200;
+    double throw_range = 400*400;
     if (return_info[player_index].pick == 1){
         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
@@ -273,8 +273,8 @@ void Game::myUpdateObjectList(int player_index){
         for (int i=0; i < (int)player_number; i++){
             // Check if two people are close enough
             if (i == player_index) continue; 
-            double op_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
-            double op_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+            double op_x = player_vector[i]->position.x + 0.5*player_vector[i]->player_rectangle.width;
+            double op_y = player_vector[i]->position.y + 0.5*player_vector[i]->player_rectangle.height;
             double dist = (op_x-my_x)*(op_x-my_x)+(op_y-my_y)*(op_y-my_y);
             if (dist < throw_range){
                 // found someone to be thrown at
