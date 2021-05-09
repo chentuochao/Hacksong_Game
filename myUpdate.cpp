@@ -1,8 +1,8 @@
 #include "myUpdate.h"
 //以下之后要删
-#include "Classes.h"
-#include "raylib.h"
-#include "game.h"
+//#include "Classes.h"
+//#include "raylib.h"
+//#include "game.h"
 
 void Game::myUpdate(){
     //关于人
@@ -37,7 +37,7 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
     Vector2 speed = player.get_speed();
 
     //检查周围一圈，只能往没有障碍物的方向加速。
-    int clear = check_player_clear(int player_index);
+    int clear = check_player_clear(player_index, player.position);
     bool up_clear = ((clear >> 0) & 1 == 1);
     bool down_clear = ((clear >> 1) & 1 == 1);
     bool left_clear = ((clear >> 2) & 1 == 1);
@@ -75,18 +75,54 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
     Vector2 target = {player.position.x + speed.x / FPS, 
     player.position.y + speed.y / FPS};
 
-    // 计算会不会撞到墙（撞到后微弹回来）
-    if (target.x <= 0 + 1){
-        target.x = 0 + 1;
-        //给一个较小的弹回去的速度
-        speed.x = 0.3 * (speed.x<0 ? -speed.x : speed.x);
+    // Consider if the target is a clear point.
+    int new_clear = check_player_clear(player_index, target);
+    bool new_up_clear = ((new_clear >> 0) & 1 == 1);
+    bool new_down_clear = ((new_clear >> 1) & 1 == 1);
+    bool new_left_clear = ((new_clear >> 2) & 1 == 1);
+    bool new_right_clear = ((new_clear >> 3) & 1 == 1);
+
+    // If it will bump & the back is clear, bump it back. Else make it stop.
+    float bump_coeff = 0.3;
+    
+    if (!new_up_clear && speed.y < 0){
+        if (down_clear){
+            speed.y = -bump_coeff * speed.y;
+        }
+        else{
+            speed.y = 0;
+        }
     }
-    if (target.x >= mapWidth - 1){
-        target.x = mapWidth - 1;
-        speed.x = 0.3 * (speed.x<0 ? speed.x : -speed.x);
+    if (!new_down_clear && speed.y > 0){
+        if (up_clear){
+            speed.y = -bump_coeff * speed.y;
+        }
+        else{
+            speed.y = 0;
+        }
+    }
+    if (!new_left_clear && speed.x < 0){
+        if (right_clear){
+            speed.x = -bump_coeff * speed.x;
+        }
+        else{
+            speed.x = 0;
+        }
+    }
+    if (!new_right_clear && speed.x > 0){
+        if (left_clear){
+            speed.x = -bump_coeff * speed.x;
+        }
+        else{
+            speed.x = 0;
+        }
     }
 
-    // 计算会不会撞到其他玩家（微弹）
+    // Got the final speed. Now calculate the new position.
+    player.update_speed(speed);
+    player.position.x += (speed.x / FPS);
+    player.position.y += (speed.y / FPS);
+
     // 判断是否遇到物品
     // 判断是否进入事件范围
 }
