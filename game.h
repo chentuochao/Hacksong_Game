@@ -15,21 +15,18 @@ using namespace std;
     #include <emscripten/emscripten.h>
 #endif
 
-
 class Game{
 public:
     static const int screenWidth = 1280;
     static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
-    typedef enum { TITLE, GAMEPLAY, ENDING } GameScreen;
-    GameScreen currentScreen = TITLE;
     Camera camera;
 
     int framsCounter;
     bool game_over = 0;
     unsigned int player_number = 0;
-    unsigned int object_number = 0;zdf
+    unsigned int object_number = 0;
     unsigned int event_number = 0;
     vector<Player> player_vector[MAX_PLAYER];
     vector<PKU_object> object_vector[MAX_OBJECT];
