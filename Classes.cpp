@@ -7,7 +7,7 @@ using namespace std;
 
 /*-----------------------------------   the functions for class "Player" --------------------------------*/
 // initialize the player class
-Player::Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0)
+Player::Player(unsigned int index0,string name0,  Vector2 speed0, vector<Texture2D> player_image0, Rectangle player_rectangle0, Color player_color0)
 {
     name = name0;
     index = index0;

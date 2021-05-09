@@ -68,14 +68,15 @@ enum Player_activity_state {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; //
 class Player
 {
     public:
-        Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0);
+        Player(unsigned int index0,string name0,  Vector2 speed0, vector<Texture2D> player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
 
 
         // the shape and position of player
         string name;
         int index;
-        Texture2D player_image;
+        int sta;
+        vector<Texture2D> player_image;
         Rectangle player_rectangle;
         Color player_color;
 
