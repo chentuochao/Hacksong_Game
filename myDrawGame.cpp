@@ -56,7 +56,8 @@ void Game::myDrawGame(){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
                         //TODO
-                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        //DrawRectangleV(obj_pos,obj_size, BLUE);
+                        DrawTexture(object_vector[obj_index]->object_image, obj_pos.x, obj_pos.y,WHITE);
                         const char* obj_name = object_vector[obj_index]->name.data();
                         DrawText(obj_name, obj_pos.x, obj_pos.y+20, 20, BLACK);
                     }
