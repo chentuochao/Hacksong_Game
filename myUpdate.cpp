@@ -14,17 +14,43 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-    std::cout<<"Debug1:\n";
+    //std::cout<<"Debug1:\n";
     // unpicked objects position calculation
     // TODO avoid events and players
+    
+    double chase_down = 10*10;
+    double chase_speed = 4*max_speed;
+
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
 
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
             object_vector[obj_index]->size.x = GetRandomValue(0, screenWidth);
             object_vector[obj_index]->size.y = GetRandomValue(0, screenHeight);
+            object_vector[obj_index]->update_state(UNPICKED);
         }
-        
+        if (object_vector[obj_index]->get_state() == THROWING){
+            // If it chased down the target
+            int target = object_vector[obj_index]->chasing_player;
+            double t_x = player_vector[target]->position.x + 0.5*player_vector[target]->player_rectangle.width;
+            double t_y = player_vector[target]->position.y + 0.5*player_vector[target]->player_rectangle.height;
+            double my_x = object_vector[obj_index]->size.x+ 0.5*object_vector[obj_index]->size.width;
+            double my_y = object_vector[obj_index]->size.y + 0.5*object_vector[obj_index]->size.height;
+            double dist = (t_x-my_x)*(t_x-my_x)+(t_y-my_y)*(t_y-my_y);
+            if (dist <= chase_down){
+                object_vector[obj_index]->update_state(NOT_APPEAR);
+            }
+            else{
+                double dx = t_x - my_x;
+                double dy = t_y - my_y;
+                double abs_dx = (dx>0?dx:-dx);
+                double abs_dy = (dy>0?dy:-dy);
+                double x_speed = chase_speed * (dx / (abs_dx + abs_dy + 1));
+                double y_speed = chase_speed * (dy / (abs_dx + abs_dy + 1));
+                object_vector[obj_index]->size.x += (x_speed / FPS);
+                object_vector[obj_index]->size.y += (y_speed / FPS);
+            }
+        }
 
     }
     //关于要刷新的事件

@@ -120,14 +120,18 @@ void Player::throw_object(unsigned int other_index){
         }
     }
 
-    if(object_list.empty()) object_in_hand = -1;
-    else object_in_hand = 0;
-    
-
     //update others' property
     if(other_index != -1){
+        object_vector[object_in_hand]->chasing_player = other_index;
+        object_vector[object_in_hand]->update_state(THROWING);
         player_vector[other_index]->be_thrown_object(object_in_hand);
     }
+    else{
+        object_vector[object_in_hand]->update_state(NOT_APPEAR);
+    }
+
+    if(object_list.empty()) object_in_hand = -1;
+    else object_in_hand = 0;
 
 } // throw object to other
 
@@ -180,6 +184,7 @@ void PKU_object::be_picked(){
 }
 
 void PKU_object::be_throwned(){
+    //THIS FUNCTION IS NOT USED
     update_state(NOT_APPEAR);
     //update_state(THROWING);
 }

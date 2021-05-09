@@ -23,6 +23,7 @@ void Game::myDrawGame(){
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
                     std::cout<<object_vector[obj_index]->get_state()<<std::endl;
                     std::cout<<NOT_APPEAR<<std::endl;
+                    /*
                     if(object_vector[obj_index]->get_state() == NOT_APPEAR){
                         object_vector[obj_index]->update_state(UNPICKED);
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
@@ -30,7 +31,7 @@ void Game::myDrawGame(){
                         // TODO
                         DrawRectangleV(obj_pos,obj_size, BLUE);
                         continue;
-                    }
+                    }*/
                     if (object_vector[obj_index]->get_state() == UNPICKED){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
