@@ -5,7 +5,7 @@
 //#include "game.h"
 
 void Game::myUpdate(){
-    std::cout<<"Debugging:\n";
+    //std::cout<<"Debugging:\n";
     //关于人
     for (int player_index=0; player_index < (int)player_number ; player_index++){
         Vector2 accel = myReadPlayerControl(player_index);

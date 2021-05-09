@@ -11,14 +11,18 @@ int main(void)
     InitWindow(g->screenWidth, g->screenHeight, "involution");
     g->myInitGame();
 
+    Image mybutton = LoadImage("icons/home.png");
+    ImageResize(&mybutton , 100, 100);
+    Texture2D BUTTON = LoadTextureFromImage(mybutton);
+
     Image mycover = LoadImage("icons/cover.png");
-    ImageResize(&mycover, 1280, 920);
+    ImageResize(&mycover, 1280, 950);
     Texture2D COVER = LoadTextureFromImage(mycover);
     Image mybg = LoadImage("icons/map.png");
     ImageResize(&mybg, 1280, 720);
     Texture2D BG = LoadTextureFromImage(mybg);
     Image myend = LoadImage("icons/ending.png");
-    ImageResize(&myend, 1280, 920);
+    ImageResize(&myend, 1280, 950);
     Texture2D END = LoadTextureFromImage(myend);
 
     SetTargetFPS(60);
@@ -62,7 +66,6 @@ int main(void)
             default: break;
         }
         //----------------------------------------------------------------------------------
-        
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -80,12 +83,12 @@ int main(void)
         case 1:
         {
             DrawTexture(BG, 0, 0, WHITE);  
-            DrawRectangle(0, 720, 640, 130, Fade(BLACK, 0.8f));
-            DrawRectangle(0, 850, 1280, 70, Fade(BLACK, 0.9f));
-            DrawRectangle(640, 720, 1280, 130, BLACK);
-            DrawText("Knowledge", 10, 730, 30, BLACK);  
-            DrawText("GPA", 10, 770, 30, BLACK);  
-            DrawText("Happiness", 10, 810, 30, BLACK);  
+            DrawRectangle(0, 750, 640, 130, Fade(BLACK, 0.8f));
+            DrawRectangle(0, 880, 1280, 70, Fade(BLACK, 0.9f));
+            DrawRectangle(640, 750, 1280, 130, BLACK);
+            DrawText("Knowledge", 10, 760, 30, BLACK);  
+            DrawText("GPA", 10, 800, 30, BLACK);  
+            DrawText("Happiness", 10, 840, 30, BLACK);  
             break;
         }
         case 2:

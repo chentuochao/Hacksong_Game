@@ -35,14 +35,14 @@ void Game::myDrawGame(){
                 for (int object_index=0; object_index < (int)object_number ; object_index++){
                     DrawTexture(object_vector[object_index]->object_image,object_vector[object_index]->size.x,object_vector[object_index]->size.y,WHITE);                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
-                    DrawTexture(object_vector[object_index]->object_image, 20+40*object_index, 860 ,WHITE );
+                    DrawTexture(object_vector[object_index]->object_image, 20+40*object_index, 890 ,WHITE );
                 }
 
                 // myDrawEventPlace();
                 // myDrawInfo();
-                DrawRectangle(170, 730, player_vector[0]->get_property().knowledge*9, 30, RED);
-                DrawRectangle(170, 770, player_vector[0]->get_property().GPA*9, 30, BLUE);
-                DrawRectangle(170, 810, player_vector[0]->get_property().happiness*9, 30, YELLOW);
+                DrawRectangle(170, 760, player_vector[0]->get_property().knowledge*9, 30, RED);
+                DrawRectangle(170, 800, player_vector[0]->get_property().GPA*9, 30, BLUE);
+                DrawRectangle(170, 840, player_vector[0]->get_property().happiness*9, 30, YELLOW);
             } break;
             case 2:
             {

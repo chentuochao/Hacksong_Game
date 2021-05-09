@@ -8,11 +8,11 @@ using namespace std;
 
 void Game::init_player_list(){
     // initialize one player
-    Image image0 = LoadImage("icons/player0.png");ImageResize(&image0, 50, 50);
-    Image image1 = LoadImage("icons/player1.png");ImageResize(&image1, 50, 50);
-    Image image2 = LoadImage("icons/player2.png");ImageResize(&image2, 50, 50);
-    Image image3 = LoadImage("icons/player3.png");ImageResize(&image3, 50, 50);
-    Image image4 = LoadImage("icons/player4.png");ImageResize(&image4, 50, 50);
+    Image image0 = LoadImage("icons/player0.png");ImageResize(&image0, 40, 50);
+    Image image1 = LoadImage("icons/player1.png");ImageResize(&image1, 40, 50);
+    Image image2 = LoadImage("icons/player2.png");ImageResize(&image2, 40, 50);
+    Image image3 = LoadImage("icons/player3.png");ImageResize(&image3, 40, 50);
+    Image image4 = LoadImage("icons/player4.png");ImageResize(&image4, 40, 50);
 
     vector<Texture2D> Text = {LoadTextureFromImage(image0), LoadTextureFromImage(image1), 
     LoadTextureFromImage(image2), LoadTextureFromImage(image3), LoadTextureFromImage(image4) };
