@@ -2,6 +2,7 @@
 
 
 void Game::myUpdate(){
+    std::cout<<"Debugging:\n";
     //关于人
     
     myGetKeyboardInfo();
@@ -13,9 +14,18 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-    //关于要刷新的物品
+    std::cout<<"Debug1:\n";
+    // unpicked objects position calculation
+    // TODO avoid events and players
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-        // myObjectGenerate(obj_index);
+
+        if (object_vector[obj_index]->get_state() == NOT_APPEAR)
+        {           
+            object_vector[obj_index]->size.x = GetRandomValue(0, screenWidth);
+            object_vector[obj_index]->size.y = GetRandomValue(0, screenHeight);
+        }
+        
+
     }
     //关于要刷新的事件
     for (int event_index=0; event_index < (int)event_number ; event_index++){
@@ -48,6 +58,7 @@ Vector2 Game::myReadPlayerControl(int player_index){
     if (Keys_info[player_index].move[2]) accel.x -= KEY_ACCEL;
     if (Keys_info[player_index].move[3]) accel.x += KEY_ACCEL;
     return(accel);
+
 }
 
 void Game::myMovePlayer(int player_index, Vector2 accel){
@@ -79,7 +90,7 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
         speed.y = max((double)speed.y, -max_speed);
     }
     // 没有按键的方向，因为摩擦力而减速。
-    double stop_accel = 2;
+    double stop_accel = 2*KEY_ACCEL;
     if (accel.x == 0){
         if (speed.x > 0) speed.x = max(0.0, speed.x - stop_accel / FPS);
         if (speed.x < 0) speed.x = min(0.0, speed.x + stop_accel / FPS);

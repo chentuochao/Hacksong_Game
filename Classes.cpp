@@ -246,6 +246,7 @@ bool PKU_event::check_event_begin(double current_time) // check if in every fram
         if(wait_human_num < min_human) begin_competition(); 
         if_begin = false;
     }
+    return(true);
 }
 
 bool PKU_event::player_want_to_join(Player p){
