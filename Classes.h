@@ -16,48 +16,48 @@ using namespace std;
 
 typedef struct player_property
 {
-	float knowledge; // 0-100, visible to player
-	float happiness; // 0-100, visible to player
-    float GPA; // 0-4.0, visible to player
-    float reputation; // 0-100, invisible to player
+	double knowledge; // 0-100, visible to player
+	double happiness; // 0-100, visible to player
+    double GPA; // 0-4.0, visible to player
+    double reputation; // 0-100, invisible to player
 }Player_property;
 
 
 typedef struct self_effect
 {
-	float knowledge_change_rate; // the change of knowledge value per second 
-	float happiness_change_rate; // the change of happiness value per second 
+	double knowledge_change_rate; // the change of knowledge value per second 
+	double happiness_change_rate; // the change of happiness value per second 
 }Self_effect;
 
 typedef struct interaction_effect
 {   
     // effects for myself
-	float my_knowledge_change; // the change of knowledge value for me
-	float my_happiness_change; // the change of happiness value for me
-    float my_reputation_change; // the change of reputation value for me
+	double my_knowledge_change; // the change of knowledge value for me
+	double my_happiness_change; // the change of happiness value for me
+    double my_reputation_change; // the change of reputation value for me
 
     // effects for others
-	float others_knowledge_change; // the change of knowledge value for others
-	float others_happiness_change; // the change of happiness value for others
-    float others_reputation_change; // the change of reputation value for others    
+	double others_knowledge_change; // the change of knowledge value for others
+	double others_happiness_change; // the change of happiness value for others
+    double others_reputation_change; // the change of reputation value for others    
 }Interaction_effect;
 
 // the requirement for different properties
 typedef struct event_property_requirement
 {
-	float knowledge_require; // 0-100, visible to player
-	float happiness_require; // 0-100, visible to player
-    float GPA_require; // 0-4.0, visible to player
-    float reputation_require; // 0-100, invisible to player
+	double knowledge_require; // 0-100, visible to player
+	double happiness_require; // 0-100, visible to player
+    double GPA_require; // 0-4.0, visible to player
+    double reputation_require; // 0-100, invisible to player
 }Event_property_requirement;
 
 // the requirement for different properties
 typedef struct event_property_effect
 {
-	float knowledge_effect; // 0-100, visible to player
-	float happiness_effect; // 0-100, visible to player
-    float GPA_effect; // 0-4.0, visible to player
-    float reputation_effect; // 0-100, invisible to player
+	double knowledge_effect; // 0-100, visible to player
+	double happiness_effect; // 0-100, visible to player
+    double GPA_effect; // 0-4.0, visible to player
+    double reputation_effect; // 0-100, invisible to player
 }Event_property_effect;
 
 
@@ -68,29 +68,30 @@ enum Player_activity_state {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; //
 class Player
 {
     public:
-        Player(unsigned int index0,string name0,  float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0);
+        Player(unsigned int index0,string name0,  Vector2 speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
 
 
         // the shape and position of player
         string name;
-        float max_speed;
         int index;
         Image player_image;
         Rectangle player_rectangle;
         Color player_color;
-        float direction; // the direction of human body: degree
+
+        Vector2 position; // Current positions
+        double direction; // the direction of human body: degree
 
         void update_activity_state(Player_activity_state new_state); // update the activity state
         Player_activity_state get_activity_state(); // get the activity state
 
-        void update_speed(float new_speed); // update the walking speed
-        float get_speed(); // get the walking speed
+        void update_speed(Vector2 new_speed); // update the walking speed
+        Vector2 get_speed(); // get the walking speed
 
-        void update_knowledge(float new_knowledge); // update the knowledge
-        void update_happiness(float new_happiness); // update the happiness
-        void update_GPA(float new_GPA); // update the GPA
-        void update_reputation(float new_reputation); // update the _reputation
+        void update_knowledge(double new_knowledge); // update the knowledge
+        void update_happiness(double new_happiness); // update the happiness
+        void update_GPA(double new_GPA); // update the GPA
+        void update_reputation(double new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
         bool pick_object(unsigned int object_index); // pick the objects
@@ -104,7 +105,7 @@ class Player
 
     private:
         // the inside property of player
-        float speed; // walking speed
+        Vector2 speed; // walking speed
 
         vector<unsigned int> object_list;
         int object_in_hand;
@@ -168,11 +169,11 @@ class PKU_event
         int min_human;
         int wait_human_num;
 
-        float start_time;
-        float time_span;
+        double start_time;
+        double time_span;
 
         void begin_competition();
-        void check_event_begin(float current_time);
+        bool check_event_begin(double current_time);
         bool player_want_to_join(Player p);
         void draw_event();
         
