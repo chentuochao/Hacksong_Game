@@ -31,11 +31,28 @@ void Game::myDrawGame(){
                 }
 
                 // myDrawObjectsToPick();
-
-                for (int object_index=0; object_index < (int)object_number ; object_index++){
-                    DrawTexture(object_vector[object_index]->object_image,object_vector[object_index]->size.x,object_vector[object_index]->size.y,WHITE);                                
+                for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
+                     DrawTexture(object_vector[obj_index]->object_image,object_vector[obj_index]->size.x,object_vector[obj_index]->size.y,WHITE);                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
-                    DrawTexture(object_vector[object_index]->object_image, 20+40*object_index, 890 ,WHITE );
+                    DrawTexture(object_vector[obj_index]->object_image, 20+40*obj_index, 890 ,WHITE );
+                    std::cout<<object_vector[obj_index]->get_state()<<std::endl;
+                    std::cout<<NOT_APPEAR<<std::endl;
+                    if(object_vector[obj_index]->get_state() == NOT_APPEAR){
+                        object_vector[obj_index]->update_state(UNPICKED);
+                        Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
+                        Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
+                        // TODO
+                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        continue;
+                    }
+                    if (object_vector[obj_index]->get_state() == UNPICKED){
+                        Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
+                        Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
+                        //TODO
+                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        const char* obj_name = object_vector[obj_index]->name.data();
+                        DrawText(obj_name, obj_pos.x, obj_pos.y+20, 20, BLACK);
+                    }
                 }
 
                 // myDrawEventPlace();
