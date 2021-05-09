@@ -96,9 +96,6 @@ class Player
         void throw_object(Player other); // throw object to other
         void be_thrown_object(unsigned int object_index); // when be thrwon object
 
-        void attend_event(unsigned event_index);
-
-
         void draw_player();
 
     private:

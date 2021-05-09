@@ -209,7 +209,28 @@ PKU_event::~PKU_event()
 }
 
 void PKU_event::begin_competition(){
-
+    vector<unsigned int> competition_list = vector();
+    for(int i = 0; i < MAX_PLAYER; ++i)
+    {
+        if(attend_players[i] == 1) competition_list.push_back(i);
+    }
+    
+    if(min_human == 1){
+        unsigned int attend_index = competition_list.at(0);
+        Player temp_player = player_vector[attend_index];
+        temp_player.update_knowledge(property_effect.knowledge_effect);
+        temp_player.update_happiness(property_effect.happiness_effect);
+        temp_player.update_reputation(property_effect.reputation_effect);
+    }
+    else if(name == string("midterm exam")){
+        continue; // to be continue
+    }
+    else if(name == string("final exam")){
+        continue;// to be continue
+    }
+    else if(name == string("sports competition")){
+        continue;// to be continue
+    }
     // reset human number
     wait_human_num = 0;
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));
@@ -219,7 +240,7 @@ bool PKU_event::check_event_begin(float current_time) // check if in every frame
 {
     if(current_time >= begin_time && current_time <= begin_time + time_span && if_begin == false)  if_begin = true;
     else if((current_time > begin_time + time_span || max_human <= 0) && if_begin == true){
-        if(wait_human_num < min_human) begin_competition(); 
+        if(wait_human_num < min_human && wait_human_num > 0) begin_competition(); 
     }
 }
 
