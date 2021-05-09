@@ -187,8 +187,6 @@ class PKU_event
         bool player_want_to_join(Player p);
         void draw_event();
         
-
-
         bool attend_players[MAX_PLAYER];
         Event_property_requirement requirement; 
         Event_property_effect property_effect;

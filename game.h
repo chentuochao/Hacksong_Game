@@ -62,7 +62,7 @@ public:
     void myObjectGenerate(int obj_index);
     void myEventCalc(int event_index);
 
-    void myExamRes(string examtype)
+    void myExamRes(string examtype);
 
     // Functions from myDrawGame.cpp
     void myDrawBackground();

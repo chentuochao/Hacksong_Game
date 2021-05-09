@@ -27,6 +27,7 @@ void Game::myUpdate(){
     }
     //关于要刷新的事件
     for (int event_index=0; event_index < event_number ; event_index++){
+        //TODO
         int one_start_time = 10 * event_vector[event_index]->start_time;
         int one_time_span = 10 * event_vector[event_index]->time_span;
         int eventalarm = 20*10;
@@ -44,6 +45,10 @@ void Game::myUpdate(){
             current_event_number =  event_index;    
             break;   
         }     
+        else if(framesCounter == one_start_time + one_time_span){
+            if()
+            event_vector[event_index]->begin_competition();
+        }
         else{
             eventhappen = false;
         } 
@@ -275,4 +280,24 @@ void Game::myObjectGenerate(int obj_index){
 
 void Game::myEventCalc(int event_index){
 
+}
+
+void Game::myExamRes(string examtype){
+	double all_knowledge = 0.0; // 0-100, visible to player
+	double all_happiness = 0.0; // 0-100, visible to player
+    double all_GPA = 0.0; // 0-4.0, visible to player
+    double all_reputation = 0.0; // 0-100, invisible to player
+    for (int player_index = 0; player_index < (int)player_number ; player_index++){
+        all_GPA += player_vector[player_index]->get_property().GPA;
+        all_reputation += player_vector[player_index]->get_property().reputation;
+        all_happiness += player_vector[player_index]->get_property().happiness;
+        all_knowledge += player_vector[player_index]->get_property().knowledge;
+    }
+    for (int player_index=0; player_index < (int)player_number ; player_index++){
+        double knowledgeres = player_vector[player_index]->get_property().knowledge/all_knowledge;
+
+        player_vector[player_index]->update_knowledge(event_vector[current_event_number]->property_effect.knowledge_effect);       
+        player_vector[player_index]->update_happiness(event_vector[current_event_number]->property_effect.happiness_effect);
+        player_vector[player_index]->update_reputation(event_vector[current_event_number]->property_effect.reputation_effect);
+    }
 }

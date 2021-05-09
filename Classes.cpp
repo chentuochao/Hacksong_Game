@@ -228,6 +228,7 @@ void PKU_event::begin_competition(){
         temp_player->update_happiness(property_effect.happiness_effect);
         temp_player->update_reputation(property_effect.reputation_effect);
     }
+    /*
     else if(name == string("Mid Exam")){
         for (int player_index=0; player_index < (int)player_number ; player_index++){
             Player* temp_player = player_vector[attend_index];
@@ -237,7 +238,7 @@ void PKU_event::begin_competition(){
         }
          // to be continue
     }
-    /*
+    
     else if(name == string("sports meeting")){
         // to be continue
     }
@@ -256,7 +257,7 @@ void PKU_event::begin_competition(){
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));
 }
 
-bool PKU_event::check_event_begin(double current_time) // check if in every frame
+bool PKU_event::check_event_begin(int current_time) // check if in every frame
 {
 
     if(current_time >= start_time && current_time <= start_time + time_span && if_begin == false)  if_begin = true;
