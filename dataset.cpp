@@ -15,7 +15,7 @@ void Game::init_player_list(){
     //----------------------------index,   name,   speed,  image, shape, color --------------
     Vector2 speed = {0, 0};
     player_vector[0] = new Player( 0,  "name0",  speed,   Text, shape, YELLOW);
-    player_number ++;
+    player_number = 1;
 
     // initialize one player
     Image image1 = LoadImage("icons/man-student.png");  

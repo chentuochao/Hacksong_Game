@@ -5,6 +5,7 @@
 //#include "game.h"
 
 void Game::myUpdate(){
+    std::cout<<"Debugging:\n";
     //关于人
     for (int player_index=0; player_index < (int)player_number ; player_index++){
         Vector2 accel = myReadPlayerControl(player_index);
@@ -26,11 +27,13 @@ void Game::myUpdate(){
 Vector2 Game::myReadPlayerControl(int player_index){
     //返回加速度的向量
     Vector2 accel = {0,0};
-    if (IsKeyPressed(KEY_UP)) accel.y -= KEY_ACCEL;
-    if (IsKeyPressed(KEY_DOWN)) accel.y += KEY_ACCEL;
-    if (IsKeyPressed(KEY_LEFT)) accel.x -= KEY_ACCEL;
-    if (IsKeyPressed(KEY_RIGHT)) accel.x += KEY_ACCEL;
+    if (IsKeyDown(KEY_UP)) accel.y -= KEY_ACCEL;
+    if (IsKeyDown(KEY_DOWN)) accel.y += KEY_ACCEL;
+    if (IsKeyDown(KEY_LEFT)) accel.x -= KEY_ACCEL;
+    if (IsKeyDown(KEY_RIGHT)) accel.x += KEY_ACCEL;
+    std::cout<<"Accel:"<<accel.x<<" "<<accel.y<<"\n";
     return(accel);
+
 }
 
 void Game::myMovePlayer(int player_index, Vector2 accel){
@@ -62,7 +65,7 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
         speed.y = max((double)speed.y, -max_speed);
     }
     // 没有按键的方向，因为摩擦力而减速。
-    double stop_accel = 2;
+    double stop_accel = 2*KEY_ACCEL;
     if (accel.x == 0){
         if (speed.x > 0) speed.x = max(0.0, speed.x - stop_accel / FPS);
         if (speed.x < 0) speed.x = min(0.0, speed.x + stop_accel / FPS);

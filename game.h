@@ -30,8 +30,8 @@ public:
     unsigned int object_number = 0;
     unsigned int event_number = 0;
 
-    static constexpr double KEY_ACCEL = 1.0; //Acceleration when pressing key
-    double max_speed = 1.0;
+    static constexpr double KEY_ACCEL = 100.0; //Acceleration when pressing key
+    double max_speed = 100.0;
 
     Game();
     ~Game();
