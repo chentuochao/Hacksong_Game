@@ -20,7 +20,8 @@ public:
     static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
-
+    int currentScreen = 0;
+    
     Camera camera;
 
     int framsCounter;

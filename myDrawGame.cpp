@@ -1,19 +1,38 @@
 #include "game.h"
-
 void Game::myDrawGame(){
-    if (!game_over){
-        // myDrawBackground();
-        // myDrawLines();
-        // myDrawPlayers();
-        // myDrawObjectsToPick();
-        // myDrawEventPlace();
-        // myDrawInfo();
-    }
-    else{
-        // myDrawGameEnd();
-    }
-}
+    switch (currentScreen)
+        {
+            case 0:
+            {
+                // Draw title screen
+                DrawText("PRESS ENTER", 450, 420, 40, BLACK);
 
+            } break;
+            case 1:
+            {
+                 // Draw gameplay screen
+                DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+                // myDrawLines();
+                // myDrawPlayers();
+                
+                // myDrawObjectsToPick();
+                // myDrawEventPlace();
+                // myDrawInfo();
+            } break;
+            case 2:
+            {
+                // Draw ending screen
+                    
+                // Draw a transparent black rectangle that covers all screen
+                DrawRectangle(0, 0, screenWidth, screenHeight, Fade(BLACK, 0.4f));
+                    
+                DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+                // myDrawGameEnd();
+            } break;
+            default: break;
+        }
+
+}
 void Game::myDrawBackground(){
 
 }
