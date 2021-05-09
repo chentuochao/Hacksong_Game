@@ -106,16 +106,20 @@ void Player::update_object_effect(){
 void Player::throw_object(unsigned int other_index){
     if(object_in_hand == -1) return;
 
-    unsigned int throw_index = object_list.at(object_in_hand);
-    PKU_object* temp_object = object_vector[throw_index];
+    PKU_object* temp_object = object_vector[object_in_hand];
     // update my property
     update_knowledge(temp_object->get_interaction_effect().my_knowledge_change);
     update_happiness(temp_object->get_interaction_effect().my_happiness_change);
     update_reputation(temp_object->get_interaction_effect().my_reputation_change);
 
     // remove the object from object_list
-    vector<unsigned int>::iterator erase_iter = object_list.begin() + object_in_hand;
-    object_list.erase(erase_iter);
+    for (vector<unsigned int>::iterator it = object_list.begin(); it!=object_list.end(); it++){
+        if (*it == object_in_hand){
+            object_list.erase(it);
+            break;
+        }
+    }
+
     if(object_list.empty()) object_in_hand = -1;
     else object_in_hand = 0;
     
