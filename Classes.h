@@ -179,8 +179,8 @@ class PKU_event
         int min_human;
         int wait_human_num;
 
-        double start_time;
-        double time_span;
+        int start_time;
+        int time_span;
 
         void begin_competition();
         bool check_event_begin(double current_time);
