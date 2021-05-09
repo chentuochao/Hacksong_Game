@@ -4,12 +4,11 @@
 #include "raylib.h"
 
 #define SQUARE_SIZE 31
-#define MAX_PLAYER 20
-#define MAX_OBJECT 100
-#define MAX_EVENT 100
+
 #include "Classes.h"
 #include <vector>
 using namespace std;
+
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -27,11 +26,8 @@ public:
     int framsCounter;
     bool game_over = 0;
     unsigned int player_number = 0;
-    unsigned int object_number = 0;zdf
+    unsigned int object_number = 0;
     unsigned int event_number = 0;
-    vector<Player> player_vector[MAX_PLAYER];
-    vector<PKU_object> object_vector[MAX_OBJECT];
-    vector<PKU_event> event_vector[MAX_EVENT];
 
     Game();
     ~Game();

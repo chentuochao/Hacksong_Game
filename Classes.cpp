@@ -15,7 +15,7 @@ Player::Player(unsigned int index0,string name0,  float speed0, Image player_ima
     player_image = player_image0;
     player_rectangle = player_rectangle0;
     player_color = player_color0;
-    object_list.clear();
+    //object_list.clear();
     object_in_hand = -1;
 
     walk_state = MIDDLE;
@@ -51,11 +51,11 @@ float Player::get_speed(){
     return speed;
 }// get the walking speed
 
-void Player::update_knowledge(unsigned float new_knowledge){
+void Player::update_knowledge(float new_knowledge){
     property.knowledge += new_knowledge;
 } // update the knowledge
 
-void Player::update_happiness(unsigned float new_happiness){
+void Player::update_happiness(float new_happiness){
     property.happiness += new_happiness;
 
 } // update the happiness
@@ -75,7 +75,7 @@ Player_property Player::get_property(){
 
 
 bool Player::pick_object(unsigned int object_index){
-    if(object_list.capacity() <= 0) return false;
+    if(object_list.size() >= MAX_OBJECT_PER_PERSON) return false;
     else if(object_list.empty()){
         object_list.push_back(object_index); 
         object_in_hand = 0;
@@ -98,8 +98,8 @@ void Player::update_object_effect(){
     unsigned int hold_index = object_list.at(object_in_hand);
     PKU_object hold_object = object_vector[hold_index];
 
-    update_knowledge(temp_object.effect_to_self.knowledge_change_rate/FPS);
-    update_happiness(temp_object.effect_to_self.happiness_change_rate/FPS);
+    update_knowledge(hold_object.get_self_effect().knowledge_change_rate/FPS);
+    update_happiness(hold_object.get_self_effect().happiness_change_rate/FPS);
     //update_reputation(temp_object.effect_to_self.my_reputation_change);
 }
 
@@ -109,9 +109,9 @@ void Player::throw_object(unsigned int other_index){
     unsigned int throw_index = object_list.at(object_in_hand);
     PKU_object temp_object = object_vector[throw_index];
     // update my property
-    update_knowledge(temp_object.effect_to_other.my_knowledge_change);
-    update_happiness(temp_object.effect_to_other.my_happiness_change);
-    update_reputation(temp_object.effect_to_other.my_reputation_change);
+    update_knowledge(temp_object.get_interaction_effect().my_knowledge_change);
+    update_happiness(temp_object.get_interaction_effect().my_happiness_change);
+    update_reputation(temp_object.get_interaction_effect().my_reputation_change);
 
     // remove the object from object_list
     vector<unsigned int>::iterator erase_iter = object_list.begin() + object_in_hand;
@@ -130,9 +130,9 @@ void Player::throw_object(unsigned int other_index){
 void Player::be_thrown_object(unsigned int object_index){
     PKU_object temp_object = object_vector[object_index];
     // update my property
-    update_knowledge(temp_object.effect_to_other.others_knowledge_change);
-    update_happiness(temp_object.effect_to_other.others_happiness_change);
-    update_reputation(temp_object.effect_to_other.others_reputation_change);
+    update_knowledge(temp_object.get_interaction_effect().others_knowledge_change);
+    update_happiness(temp_object.get_interaction_effect().others_happiness_change);
+    update_reputation(temp_object.get_interaction_effect().others_reputation_change);
 } // when be thrwon object
 
 
@@ -150,7 +150,7 @@ PKU_object::PKU_object(string name0, unsigned int index0, Vector2 position0, Ima
     size = size0;
     effect_to_self = effect_to_self0;
     effect_to_other = effect_to_other0;
-    Object_state = UNPICKED;
+    state = UNPICKED;
 }
 
 PKU_object::~PKU_object()
@@ -211,7 +211,7 @@ PKU_event::~PKU_event()
 }
 
 void PKU_event::begin_competition(){
-    vector<unsigned int> competition_list = vector();
+    vector<unsigned int> competition_list;
     for(int i = 0; i < MAX_PLAYER; ++i)
     {
         if(attend_players[i] == 1) competition_list.push_back(i);
@@ -225,25 +225,26 @@ void PKU_event::begin_competition(){
         temp_player.update_reputation(property_effect.reputation_effect);
     }
     else if(name == string("midterm exam")){
-        continue; // to be continue
+         // to be continue
     }
     else if(name == string("final exam")){
-        continue;// to be continue
+        // to be continue
     }
     else if(name == string("sports competition")){
-        continue;// to be continue
+        // to be continue
     }
     // reset human number
     wait_human_num = 0;
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));
 }
 
-bool PKU_event::check_event_begin(float current_time) // check if in every frame
+void PKU_event::check_event_begin(float current_time) // check if in every frame
 {
 
     if(current_time >= start_time && current_time <= start_time + time_span && if_begin == false)  if_begin = true;
     else if((current_time > start_time + time_span || max_human <= 0) && if_begin == true){
         if(wait_human_num < min_human) begin_competition(); 
+        if_begin = false;
     }
 }
 
@@ -270,3 +271,13 @@ bool PKU_event::player_want_to_join(Player p){
 void PKU_event::draw_event(){
 
 }
+
+
+unsigned int player_number = 0;
+Player *player_vector;
+
+unsigned int object_number = 0; 
+PKU_object *object_vector;
+
+unsigned int event_number = 0;
+PKU_event *event_vector;

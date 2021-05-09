@@ -4,11 +4,15 @@
 #include <iostream>
 #include <string>
 
-#include <game.h>
 #include "raylib.h"
 #include <vector>
 using namespace std;
 
+#define MAX_PLAYER 20
+#define MAX_OBJECT 100
+#define MAX_EVENT 100
+#define MAX_OBJECT_PER_PERSON 10
+#define FPS 60
 
 typedef struct player_property
 {
@@ -91,11 +95,11 @@ class Player
         void update_reputation(float new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
-        void pick_object(unsigned int object_index); // pick the objects
+        bool pick_object(unsigned int object_index); // pick the objects
         void change_object();  // change object
         void update_object_effect(); // update the effect of the object in the hand
 
-        void throw_object(Player other); // throw object to other
+        void throw_object(unsigned int other_index); // throw object to other
         void be_thrown_object(unsigned int object_index); // when be thrwon object
 
         void draw_player();
@@ -104,7 +108,7 @@ class Player
         // the inside property of player
         float speed; // walking speed
 
-        vector<unsigned int> object_list[MAX_OBJECT_PER_PERSON];
+        vector<unsigned int> object_list;
         int object_in_hand;
 
         Player_walk_state walk_state;
@@ -172,7 +176,7 @@ class PKU_event
         float time_span;
 
         void begin_competition();
-        bool check_event_begin(float current_time);
+        void check_event_begin(float current_time);
         bool player_want_to_join(Player p);
         void draw_event();
         
@@ -184,7 +188,14 @@ class PKU_event
 
 };
 
+extern unsigned int player_number;
+extern Player* player_vector;
 
+extern unsigned int object_number;
+extern PKU_object* object_vector;
+
+extern unsigned int event_number;
+extern PKU_event* event_vector;
  
 
 #endif
