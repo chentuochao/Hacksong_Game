@@ -17,8 +17,19 @@ void Game::myDrawGame(){
                 Image p = LoadImage("icons/man-student.png");
                 ImageResize(&p,30,30);
                 Texture2D P = LoadTextureFromImage(p);
-                DrawTexture(P,500,300,WHITE);
+                
+                DrawTexture(P,player_vector[0]->position.x,player_vector[0]->position.y,WHITE);
                 // myDrawObjectsToPick();
+                for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
+                    if(object_vector[obj_index]->get_state() == UNPICKED){
+                        object_vector[obj_index]->update_state(UNPICKED);
+                        //TODO
+                        Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
+                        Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
+                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                    }
+                }
+
                 // myDrawEventPlace();
                 // myDrawInfo();
             } break;

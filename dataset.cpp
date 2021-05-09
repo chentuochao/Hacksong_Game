@@ -33,6 +33,8 @@ void Game::init_object_list(){
     Interaction_effect my_interaction = {-5, +10, -5, +1, -20, 0}; //my_knowledge_change, my_happiness_change, my_reputation_change, others_knowledge_change, others_happiness_change, others_reputation_change
     object_vector[0] = new PKU_object("gaoshu", 0, image, range, my_self, my_interaction);
     object_number ++;
+    object_vector[object_number] = new PKU_object("English", 0, image, range, my_self, my_interaction);
+    object_number ++;
 }
 
 void Game::init_event_list(){
