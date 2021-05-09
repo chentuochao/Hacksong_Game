@@ -2,17 +2,17 @@
 
 void myUpdate(){
     //关于人
-    for (int player_index=0; player_index < %%%% ; player_index++){
+    for (int player_index=0; player_index < MAX_PLAYER ; player_index++){
         myReadPlayerControl(player_index);
         myMovePlayer(player_index);
         myUpdatePlayerState(player_index);
     }
     //关于要刷新的物品
-    for (int obj_index=0; obj_index < %%%% ; obj_index++){
+    for (int obj_index=0; obj_index < MAX_OBJECT ; obj_index++){
         myObjectGenerate(obj_index);
     }
     //关于要刷新的事件
-    for (int event_index=0; event_index < %%%% ; event_index++){
+    for (int event_index=0; event_index < MAX_EVENT ; event_index++){
         myEventCalc(event_index);
     }
 }
@@ -39,5 +39,5 @@ void myObjectGenerate(int obj_index){
 }
 
 void myEventCalc(int event_index){
-    
+
 }
