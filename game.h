@@ -21,6 +21,9 @@ public:
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
     int currentScreen = 0;
+    int framesCounter = 0;
+    bool eventhappen = false;
+    string eventnote;
 
     Camera camera;
 
@@ -29,6 +32,7 @@ public:
     unsigned int player_number = 0;
     unsigned int object_number = 0;
     unsigned int event_number = 0;
+    int current_event_number = 0;
 
     static constexpr double KEY_ACCEL = 200; //Acceleration when pressing key
     double max_speed = 100;
