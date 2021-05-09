@@ -2,7 +2,7 @@
 
 
 void Game::myUpdate(){
-    //std::cout<<"Debugging:\n";
+    std::cout<<"Debugging:\n";
     //关于人
     
     myGetKeyboardInfo();

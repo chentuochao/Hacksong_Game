@@ -17,7 +17,7 @@ using namespace std;
 class Game{
 public:
     static const int screenWidth = 1280;
-    static const int screenHeight = 950;
+    static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
     int currentScreen = 0;

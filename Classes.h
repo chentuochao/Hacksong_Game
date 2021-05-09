@@ -77,19 +77,17 @@ enum Player_activity_state {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; //
 class Player
 {
     public:
-        Player(unsigned int index0,string name0,  Vector2 speed0, vector<Texture2D> player_image0, Rectangle player_rectangle0, Color player_color0);
+        Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
 
 
         // the shape and position of player
         string name;
         int index;
-        int sta;
-        vector<Texture2D> player_image;
+        Texture2D player_image;
         Rectangle player_rectangle;
         Color player_color;
 
-        vector<unsigned int> object_list;
         Vector2 position; // Current positions
         double direction; // the direction of human body: degree
 
@@ -120,6 +118,8 @@ class Player
         // the inside property of player
         Vector2 speed; // walking speed
 
+        vector<unsigned int> object_list;
+
         Player_walk_state walk_state;
         Player_activity_state activity_state;
         Player_property property;
@@ -133,12 +133,12 @@ enum Object_state {NOT_APPEAR, UNPICKED, PICKED, USING, THROWING, THROWED}; // n
 class PKU_object
 {
     public:
-        PKU_object(string name0, unsigned int index0, Texture2D object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
+        PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
         string name;
         int index;
-        Texture2D object_image;
+        Image object_image;
         Rectangle size;
 
         void update_state(Object_state new_state);
