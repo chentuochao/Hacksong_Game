@@ -8,19 +8,22 @@ using namespace std;
 
 void Game::init_player_list(){
     // initialize one player
-    Image image = LoadImage("p0.png");  
+    Image image = LoadImage("icons/man-student.png");  
+    ImageResize(&image, 30, 30);
+    Texture2D Text = LoadTextureFromImage(image);
     Rectangle shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color --------------
     Vector2 speed = {0, 0};
-    player_vector[0] = new Player( 0,  "name0",  speed,   image, shape, YELLOW);
+    player_vector[0] = new Player( 0,  "name0",  speed,   Text, shape, YELLOW);
     player_number ++;
 
     // initialize one player
-    image = LoadImage("icons/man-student.png");  
-    ImageResize(&image, 30, 30);
+    Image image1 = LoadImage("icons/man-student.png");  
+    ImageResize(&image1, 30, 30);
+    Texture2D Text1 = LoadTextureFromImage(image);
     shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color -------------------
-    player_vector[1] = new Player( 1, "name1",  speed,   image, shape, RED);
+    player_vector[1] = new Player( 1, "name1",  speed,   Text1, shape, RED);
     player_number ++;
 
 }

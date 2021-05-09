@@ -16,8 +16,7 @@ void Game::myDrawGame(){
                 // myDrawPlayers()
                 
                 for (int player_index=0; player_index < (int)player_number ; player_index++){
-                    Texture2D P = LoadTextureFromImage(player_vector[player_index]->player_image);
-                    DrawTexture(P,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                                
+                    DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
                 }
                 // myDrawObjectsToPick();
