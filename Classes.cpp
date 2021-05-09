@@ -89,7 +89,7 @@ bool Player::pick_object(int object_index){
 
 void Player::change_object(){
     if(object_list.empty()) object_in_hand = -1; // there is no object currently
-    else if(object_in_hand >= object_list.size() - 1) object_in_hand = 0;
+    else if((int)object_in_hand >= (int)object_list.size() - 1) object_in_hand = 0;
     else object_in_hand++;
 } // change object
 

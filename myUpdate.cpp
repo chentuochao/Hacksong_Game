@@ -29,7 +29,7 @@ void Game::myUpdate(){
         int one_start_time = 10 * event_vector[event_index]->start_time;
         int one_time_span = 10 * event_vector[event_index]->time_span;
         int eventalarm = 20*10;
-        std::cout<<'current state\n';
+        std::cout<<"current state\n";
         std::cout<<one_start_time<<std::endl;
         std::cout<<framesCounter<<std::endl;
         if(framesCounter < one_start_time && framesCounter > one_start_time - eventalarm){
