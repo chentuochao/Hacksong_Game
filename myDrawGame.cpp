@@ -1,7 +1,7 @@
 #include "myDrawGame.h"
 
 void myDrawGame(){
-    if (!my_gameover){
+    if (!game_over){
         myDrawBackground();
         myDrawLines();
         myDrawPlayers();
