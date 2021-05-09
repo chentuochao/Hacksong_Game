@@ -13,13 +13,22 @@ void Game::myDrawGame(){
                  // Draw gameplay screen
                 DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
                 // myDrawLines();
-                // myDrawPlayers()
-                
+                // myDrawPlayers()               
                 for (int player_index=0; player_index < (int)player_number ; player_index++){
                     DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
                 }
                 // myDrawObjectsToPick();
+                for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
+                    if(object_vector[obj_index]->get_state() == UNPICKED){
+                        object_vector[obj_index]->update_state(UNPICKED);
+                        //TODO
+                        Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
+                        Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
+                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                    }
+                }
+
                 // myDrawEventPlace();
                 // myDrawInfo();
             } break;

@@ -13,9 +13,18 @@ void Game::myUpdate(){
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
-    //关于要刷新的物品
+
+    // unpicked objects position calculation
+    // TODO avoid events and players
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-        // myObjectGenerate(obj_index);
+
+        if (object_vector[obj_index]->get_state() == NOT_APPEAR)
+        {           
+            object_vector[obj_index]->size.x = GetRandomValue(0, screenWidth);
+            object_vector[obj_index]->size.y = GetRandomValue(0, screenHeight);
+        }
+        
+
     }
     //关于要刷新的事件
     for (int event_index=0; event_index < (int)event_number ; event_index++){
