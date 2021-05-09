@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "raylib.h"
+#include "Global_para.h"
 
 using namespace std;
 
@@ -55,14 +56,16 @@ typedef struct event_property_effect
 }Event_property_effect;
 
 
-enum Player_walk_state = {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
-enum Player_activity_state = {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
+
 
 class Player
 {
     public:
-        Player();
+        Player(string name0, unsigned int index0, float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
+
+        enum Player_walk_state = {RIGHT_FOOT_UP, MIDDLE, LEFT_FOOT_UP};
+        enum Player_activity_state = {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; // need to update !!!!!!!!
 
         // the shape and position of player
         string name;
@@ -72,31 +75,56 @@ class Player
         Color player_color;
 
         Vector2 position; // Current positions
-        Vector2 direction; // the direction of human body
+        float direction; // the direction of human body: degree
+
+        void update_activity_state(Player_activity_state new_state); // update the activity state
+        Player_activity_state get_activity_state(); // get the activity state
+
+        void update_speed(float new_speed); // update the walking speed
+        float get_speed(); // get the walking speed
+
+        void update_knowledge(unsigned float new_knowledge); // update the knowledge
+        void update_happiness(unsigned float new_happiness); // update the happiness
+        void update_GPA(unsigned float new_GPA); // update the GPA
+        void update_reputation(unsigned float new_reputation); // update the _reputation
+        Player_property get_property(); // get the direction
+
+        void draw_player();
 
     private:
         // the inside property of player
         float speed; // walking speed
+
+        vector<unsigned int> object_list;
         Player_walk_state walk_state;
         Player_activity_state activity_state;
         Player_property property;
         unsigned int attack_range; 
 };
 
-enum Object_state = {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
+
 
 
 class PKU_object
 {
     public:
-        PKU_object();
+        PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
+        enum Object_state = {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
         string name;
         unsigned int index;
         Vector2 position;
         Image object_image;
         Rectangle size;
+
+        void update_state(Object_state new_state);
+        Object_state get_state();
+
+        Self_effect get_self_effect();
+        Interaction_effect get_interaction_effect();
+
+        void draw_object();
 
     private:
         Object_state state; 
@@ -105,25 +133,38 @@ class PKU_object
 };
 
 
-enum Event_place = {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
 
 class PKU_event
 {
     public:
-        PKU_event();
+        PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, float start_time0, float time_span0, Event_property_effect property_effect0);
         ~PKU_event();
-    
+
+        enum Event_place = {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
+
         string name;
+        bool if_begin; // if the activity begins
         unsigned int index;
         string information;
-        
-    private:
         Event_place place;
+
         unsigned int max_human;
+        unsigned int min_human;
+        unsigned int wait_human_num;
+
+        float start_time;
+        float time_span;
+
+        void begin_competition();
+        bool check_event_begin(float current_time);
+        bool player_want_to_join(Player p);
+        void draw_event();
+
+    private:
+        bool attend_players[MAX_PLAYER];
         Event_property_requirement requirement; 
-        unsigned int start_time;
-        unsigned int time_span;
         Event_property_effect property_effect;
+
 };
 
 
