@@ -1,7 +1,8 @@
-#include "init.h"
+// #include "init.h"
+#include "game.h"
 
 //Initialize game variables
-void myInitGame(void)
+void Game::myInitGame(void)
 {
     return;
 }

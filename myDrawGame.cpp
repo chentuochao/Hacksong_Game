@@ -1,39 +1,15 @@
-#include "myDrawGame.h"
+#include "game.h"
 
-void myDrawGame(){
-    if (!my_gameover){
-        myDrawBackground();
-        myDrawLines();
-        myDrawPlayers();
-        myDrawObjectsToPick();
-        myDrawEventPlace();
-        myDrawInfo();
+void Game::myDrawGame(){
+    if (!game_over){
+        // myDrawBackground();
+        // myDrawLines();
+        // myDrawPlayers();
+        // myDrawObjectsToPick();
+        // myDrawEventPlace();
+        // myDrawInfo();
     }
     else{
-        myDrawGameEnd();
+        // myDrawGameEnd();
     }
-}
-
-void myDrawBackground(){
-
-}
-
-void myDrawLines(){
-
-}
-
-void myDrawPlayers(){
-
-}
-
-void myDrawObjectsToPick(){
-
-}
-
-void myDrawEventPlace(){
-
-}
-
-void myDrawInfo(){
-    
 }
