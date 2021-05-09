@@ -85,7 +85,7 @@ void Game::init_object_list(){
     Rectangle range4 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self4 = {-1, 3}; //knowledge_change_rate, happiness_change_rate
     // TODO happiness for love should be ramdom
-    Interaction_effect my_interaction4 = {-1, GetRandomValue(-10,10), 0, +1, GetRandomValue(-10,10), 0}; 
+    Interaction_effect my_interaction4 = {-1, (int)GetRandomValue(-10,10), 0, +1, (int)GetRandomValue(-10,10), 0}; 
     object_vector[object_number] = new PKU_object("LOVE", 0, Text, range4, my_self4, my_interaction4);
     object_number ++;
 }
