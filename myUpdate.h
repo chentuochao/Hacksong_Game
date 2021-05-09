@@ -1,9 +1,10 @@
 #include "game.h"
 
 void Game::myUpdate();
-void Game::myReadPlayerControl(int player_index);
+Vector2 Game::myReadPlayerControl(int player_index);
 
-void Game::myMovePlayer(int player_index);
+void Game::myMovePlayer(int player_index, Vector2 accel);
+int Game::check_player_clear(int player_index, Vector2 position)
 //以下是myMovePlayer的子函数
 
 void Game::myUpdatePlayerState(int player_index);
