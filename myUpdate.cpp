@@ -26,16 +26,16 @@ void Game::myUpdate(){
 Vector2 Game::myReadPlayerControl(int player_index){
     //返回加速度的向量
     Vector2 accel = {0,0};
-    if (IsKeyPressed(KEY_UP)) accel.y -= Player::KEY_ACCEL;
-    if (IsKeyPressed(KEY_DOWN)) accel.y += Player::KEY_ACCEL;
-    if (IsKeyPressed(KEY_LEFT)) accel.x -= Player::KEY_ACCEL;
-    if (IsKeyPressed(KEY_RIGHT)) accel.x += Player::KEY_ACCEL;
+    if (IsKeyPressed(KEY_UP)) accel.y -= KEY_ACCEL;
+    if (IsKeyPressed(KEY_DOWN)) accel.y += KEY_ACCEL;
+    if (IsKeyPressed(KEY_LEFT)) accel.x -= KEY_ACCEL;
+    if (IsKeyPressed(KEY_RIGHT)) accel.x += KEY_ACCEL;
     return(accel);
 }
 
 void Game::myMovePlayer(int player_index, Vector2 accel){
-    Vector2 speed = player_vector[player_index].get_speed();
-    Vector2 cur_pos = player_vector[player_index].position;
+    Vector2 speed = player_vector[player_index]->get_speed();
+    Vector2 cur_pos = player_vector[player_index]->position;
 
     //检查周围一圈，只能往没有障碍物的方向加速。
     int clear = check_player_clear(player_index, cur_pos);
@@ -47,19 +47,19 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
     // 根据键盘加减速。只能往没有阻挡的方向获得加速度。
     if (right_clear && accel.x > 0){
         speed.x += accel.x / FPS;
-        speed.x = min((double)speed.x, Player::max_speed);
+        speed.x = min((double)speed.x, max_speed);
     }
     if (left_clear && accel.x < 0){
         speed.x += accel.x / FPS;
-        speed.x = max((double)speed.x, -Player::max_speed);
+        speed.x = max((double)speed.x, -max_speed);
     }
     if (down_clear && accel.y > 0){
         speed.y += accel.y / FPS;
-        speed.y = min((double)speed.y, Player::max_speed);
+        speed.y = min((double)speed.y, max_speed);
     }
     if (up_clear && accel.y < 0){
         speed.y += accel.y / FPS;
-        speed.y = max((double)speed.y, -Player::max_speed);
+        speed.y = max((double)speed.y, -max_speed);
     }
     // 没有按键的方向，因为摩擦力而减速。
     double stop_accel = 2;
@@ -120,9 +120,9 @@ void Game::myMovePlayer(int player_index, Vector2 accel){
     }
 
     // Got the final speed. Now calculate the new position.
-    player_vector[player_index].update_speed(speed);
-    player_vector[player_index].position.x += (speed.x / FPS);
-    player_vector[player_index].position.y += (speed.y / FPS);
+    player_vector[player_index]->update_speed(speed);
+    player_vector[player_index]->position.x += (speed.x / FPS);
+    player_vector[player_index]->position.y += (speed.y / FPS);
 
     // 判断是否遇到物品
     // 判断是否进入事件范围
@@ -134,8 +134,8 @@ int Game::check_player_clear(int player_index, Vector2 position){
     //这里检查的是该范围内是否有墙，或者其他玩家。
     
     bool up_clear=1, down_clear=1, left_clear=1, right_clear=1;
-    double my_w = player_vector[player_index].player_rectangle.width;
-    double my_h = player_vector[player_index].player_rectangle.height;
+    double my_w = player_vector[player_index]->player_rectangle.width;
+    double my_h = player_vector[player_index]->player_rectangle.height;
     double my_x = position.x;
     double my_y = position.y;
 
@@ -149,8 +149,8 @@ int Game::check_player_clear(int player_index, Vector2 position){
     double margin = 0.1; //一个常量，表示人与人之间的最小距离
     for (int i = 0; i< (int)player_number; i++){
         if (i==player_index) continue;
-        double other_x = player_vector[i].position.x;
-        double other_y = player_vector[i].position.y;
+        double other_x = player_vector[i]->position.x;
+        double other_y = player_vector[i]->position.y;
 
         //它挡住了右侧
         bool block_right = (other_x >= my_x + my_w) && (other_x <= my_x + my_w + margin)

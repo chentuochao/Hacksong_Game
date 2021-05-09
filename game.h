@@ -4,12 +4,11 @@
 #include "raylib.h"
 
 #define SQUARE_SIZE 31
-#define MAX_PLAYER 20
-#define MAX_OBJECT 100
-#define MAX_EVENT 100
+
 #include "Classes.h"
 #include <vector>
 using namespace std;
+
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -21,7 +20,7 @@ public:
     static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
-    static const int FPS = 60;
+
     Camera camera;
 
     int framsCounter;
@@ -29,9 +28,9 @@ public:
     unsigned int player_number = 0;
     unsigned int object_number = 0;
     unsigned int event_number = 0;
-    vector<Player> player_vector[MAX_PLAYER];
-    vector<PKU_object> object_vector[MAX_OBJECT];
-    vector<PKU_event> event_vector[MAX_EVENT];
+
+    static constexpr double KEY_ACCEL = 1.0; //Acceleration when pressing key
+    static constexpr double max_speed = 1.0;
 
     Game();
     ~Game();

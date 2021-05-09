@@ -4,11 +4,15 @@
 #include <iostream>
 #include <string>
 
-#include "game.h"
 #include "raylib.h"
 #include <vector>
 using namespace std;
 
+#define MAX_PLAYER 20
+#define MAX_OBJECT 100
+#define MAX_EVENT 100
+#define MAX_OBJECT_PER_PERSON 10
+#define FPS 60
 
 typedef struct player_property
 {
@@ -70,8 +74,6 @@ class Player
 
         // the shape and position of player
         string name;
-        static double KEY_ACCEL; //Acceleration when pressing key
-        static double max_speed;
         int index;
         Image player_image;
         Rectangle player_rectangle;
@@ -92,13 +94,22 @@ class Player
         void update_reputation(double new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
+        bool pick_object(unsigned int object_index); // pick the objects
+        void change_object();  // change object
+        void update_object_effect(); // update the effect of the object in the hand
+
+        void throw_object(unsigned int other_index); // throw object to other
+        void be_thrown_object(unsigned int object_index); // when be thrwon object
+
         void draw_player();
 
     private:
         // the inside property of player
         Vector2 speed; // walking speed
 
-        vector<int> object_list;
+        vector<unsigned int> object_list;
+        int object_in_hand;
+
         Player_walk_state walk_state;
         Player_activity_state activity_state;
         Player_property property;
@@ -106,18 +117,17 @@ class Player
 };
 
 
-enum Object_state {UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
+enum Object_state {NOT_APPEAR, UNPICKED, PICKED, USING, THROWING, THROWED}; // need to update !!!!!!!!
 
 
 class PKU_object
 {
     public:
-        PKU_object(string name0, unsigned int index0, Vector2 position0, Image object_image0, Rectangle size0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
+        PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
         string name;
         int index;
-        Vector2 position;
         Image object_image;
         Rectangle size;
 
@@ -126,6 +136,9 @@ class PKU_object
 
         Self_effect get_self_effect();
         Interaction_effect get_interaction_effect();
+
+        void be_picked();
+        void be_throwned();
 
         void draw_object();
 
@@ -136,12 +149,11 @@ class PKU_object
         Interaction_effect effect_to_other; // effect to others
 };
 
-
+enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
 
 class PKU_event
 {
     public:
-        enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the event happens
         PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, unsigned int start_time0, unsigned int time_span0, Event_property_effect property_effect0);
         ~PKU_event();
 
@@ -173,7 +185,14 @@ class PKU_event
 
 };
 
+extern unsigned int player_number;
+extern Player* player_vector[MAX_PLAYER];
 
+extern unsigned int object_number;
+extern PKU_object* object_vector[MAX_OBJECT];
+
+extern unsigned int event_number;
+extern PKU_event* event_vector[MAX_EVENT];
  
 
 #endif
