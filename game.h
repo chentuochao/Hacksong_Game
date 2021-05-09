@@ -3,16 +3,59 @@
 
 #include "raylib.h"
 
+#define SQUARE_SIZE 31
+#define MAX_PLAYER 20
+#define MAX_OBJECT 100
+#define MAX_EVENT 100
+#include "Classes.h"
+#include <vector>
+using namespace std;
+
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
 
-#define SNAKE_LENGTH   256
-#define SQUARE_SIZE     31
+class Game{
+public:
+    static const int screenWidth = 1280;
+    static const int screenHeight = 920;
+    static const int mapWidth = 1280;
+    static const int mapHeight = 720;
+    static const int FPS = 60;
+    Camera camera;
 
-extern const int screenWidth;
-extern const int screenHeight;
+    int framsCounter;
+    bool game_over = 0;
+    unsigned int player_number = 0;
+    unsigned int object_number = 0;
+    unsigned int event_number = 0;
+    vector<Player> player_vector[MAX_PLAYER];
+    vector<PKU_object> object_vector[MAX_OBJECT];
+    vector<PKU_event> event_vector[MAX_EVENT];
 
-extern Camera camera;
+    Game();
+    ~Game();
 
+    void myInitGame(void);
+    void myUpdate(void);
+    void myDrawGame(void);
+
+
+    // Functions from myUpdate.cpp
+    Vector2 myReadPlayerControl(int player_index);
+    void myMovePlayer(int player_index, Vector2 accel);
+    int check_player_clear(int player_index, Vector2 position);
+    void myUpdatePlayerState(int player_index);
+    void myObjectGenerate(int obj_index);
+    void myEventCalc(int event_index);
+
+    // Functions from myDrawGame.cpp
+    void myDrawBackground();
+    void myDrawLines();
+    void myDrawPlayers();
+    void myDrawObjectsToPick();
+    void myDrawEventPlace();
+    void myDrawInfo();
+
+};
 #endif
