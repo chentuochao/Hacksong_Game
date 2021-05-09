@@ -20,6 +20,7 @@ public:
     static const int screenHeight = 920;
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
+    int currentScreen = 0;
 
     Camera camera;
 
@@ -30,7 +31,7 @@ public:
     unsigned int event_number = 0;
 
     static constexpr double KEY_ACCEL = 1.0; //Acceleration when pressing key
-    static constexpr double max_speed = 1.0;
+    double max_speed = 1.0;
 
     Game();
     ~Game();
