@@ -5,6 +5,12 @@ Game::Game(){
 
 }
 
+void Game::myInitGame(void)
+{
+    return;
+}
+
+
 int main(void)
 {
     Game *g = new Game();
