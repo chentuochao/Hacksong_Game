@@ -30,8 +30,10 @@ public:
     unsigned int object_number = 0;
     unsigned int event_number = 0;
 
-    static constexpr double KEY_ACCEL = 100.0; //Acceleration when pressing key
-    double max_speed = 100.0;
+    static constexpr double KEY_ACCEL = 200; //Acceleration when pressing key
+    double max_speed = 100;
+
+    struct keys_info Keys_info[MAX_PLAYER];
 
     Game();
     ~Game();
@@ -46,10 +48,13 @@ public:
 
 
     // Functions from myUpdate.cpp
+    void myGetKeyboardInfo();
+    //if single person, get from keyboard. If server get from net.
     Vector2 myReadPlayerControl(int player_index);
     void myMovePlayer(int player_index, Vector2 accel);
     int check_player_clear(int player_index, Vector2 position);
     void myUpdatePlayerState(int player_index);
+    void myUpdateObjectList(int player_index);
     void myObjectGenerate(int obj_index);
     void myEventCalc(int event_index);
 

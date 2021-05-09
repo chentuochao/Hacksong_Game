@@ -1,15 +1,16 @@
 #include "game.h"
-//以下之后要删
-//#include "Classes.h"
-//#include "raylib.h"
-//#include "game.h"
+
 
 void Game::myUpdate(){
     //std::cout<<"Debugging:\n";
     //关于人
+    
+    myGetKeyboardInfo();
+
     for (int player_index=0; player_index < (int)player_number ; player_index++){
         Vector2 accel = myReadPlayerControl(player_index);
         myMovePlayer(player_index,accel);
+        myUpdateObjectList(player_index);
         myUpdatePlayerState(player_index);
         //判断玩家是否死亡等状态                                      
     }
@@ -32,15 +33,30 @@ void Game::myUpdate(){
     }
 }
 
+void Game::myGetKeyboardInfo(){
+    // Now this reads player 0's info from the keyboard.
+    // In multi-player version this should get all info from the
+    Keys_info[0].move[0] = (IsKeyDown(KEY_W)!=0 ? 1 : 0);
+    Keys_info[0].move[1] = (IsKeyDown(KEY_S)!=0 ? 1 : 0);
+    Keys_info[0].move[2] = (IsKeyDown(KEY_A)!=0 ? 1 : 0);
+    Keys_info[0].move[3] = (IsKeyDown(KEY_D)!=0 ? 1 : 0);
+
+    Keys_info[0].change_object[0] = (IsKeyPressed(KEY_LEFT)!=0 ? 1 : 0);
+    Keys_info[0].change_object[1] = (IsKeyPressed(KEY_RIGHT)!=0 ? 1 : 0);
+
+    Keys_info[0].pick = (IsKeyPressed(KEY_DOWN)!=0 ? 1 : 0);
+    Keys_info[0].throwing = (IsKeyPressed(KEY_UP)!=0 ? 1 : 0);
+    
+    Keys_info[0].join = (IsKeyPressed(KEY_SPACE)!=0 ? 1 : 0);
+}
 
 Vector2 Game::myReadPlayerControl(int player_index){
     //返回加速度的向量
     Vector2 accel = {0,0};
-    if (IsKeyDown(KEY_UP)) accel.y -= KEY_ACCEL;
-    if (IsKeyDown(KEY_DOWN)) accel.y += KEY_ACCEL;
-    if (IsKeyDown(KEY_LEFT)) accel.x -= KEY_ACCEL;
-    if (IsKeyDown(KEY_RIGHT)) accel.x += KEY_ACCEL;
-    std::cout<<"Accel:"<<accel.x<<" "<<accel.y<<"\n";
+    if (Keys_info[player_index].move[0]) accel.y -= KEY_ACCEL;
+    if (Keys_info[player_index].move[1]) accel.y += KEY_ACCEL;
+    if (Keys_info[player_index].move[2]) accel.x -= KEY_ACCEL;
+    if (Keys_info[player_index].move[3]) accel.x += KEY_ACCEL;
     return(accel);
 
 }
@@ -194,6 +210,46 @@ int Game::check_player_clear(int player_index, Vector2 position){
 void Game::myUpdatePlayerState(int player_index){
     //判断玩家是否死亡等状态
 
+}
+
+void Game::myUpdateObjectList(int player_index){
+    // Pick up an item if exists
+    double pickup_range = 100*100;
+    double throw_range = 200*200;
+    if (Keys_info[player_index].pick == 1){
+        double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
+        double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+        for (int i=0; i < (int)object_number; i++){
+            // Check if it is close enough
+            if (object_vector[i]->get_state()!=UNPICKED) continue; 
+            double ob_x = object_vector[i]->size.x + 0.5*object_vector[i]->size.width;
+            double ob_y = object_vector[i]->size.y + 0.5*object_vector[i]->size.height;
+            double dist = (ob_x-my_x)*(ob_x-my_x)+(ob_y-my_y)*(ob_y-my_y);
+            if (dist < pickup_range){
+                bool success = player_vector[player_index]->pick_object(i);
+                if (success) object_vector[i]->be_picked();
+                break;
+            }
+        }
+    }
+    else if (Keys_info[player_index].throwing == 1){
+        double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
+        double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+        int daomeidan = -1;
+        for (int i=0; i < (int)player_number; i++){
+            // Check if two people are close enough
+            if (i == player_index) continue; 
+            double op_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
+            double op_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+            double dist = (op_x-my_x)*(op_x-my_x)+(op_y-my_y)*(op_y-my_y);
+            if (dist < throw_range){
+                // found someone to be thrown at
+                daomeidan = i;
+                break;
+            }
+        }
+        player_vector[player_index]->throw_object(daomeidan);
+    }
 }
 
 void Game::myObjectGenerate(int obj_index){
