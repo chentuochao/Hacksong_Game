@@ -77,12 +77,44 @@ void Game::init_object_list(){
 
 void Game::init_event_list(){
 
-    // initialize one event
-    string information = "Midterm exam is beginning in the Teaching Building. Every student should take part in the exam, otherwise your GPA will become 0!";
+    // initialize one even
+    string information = "Midterm exam is beginning in the Teaching Building\n. Every student should take part in the exam,\n otherwise your GPA will become 0!\n";
     Event_property_requirement requirement = {10, 10, 0, 10};
-    unsigned int start_time = 30;
-    unsigned int time_span = 10;
+    int start_time = 90;
+    int time_span = 20;
     Event_property_effect property_effect = {+5, -5, 0, 0};
-    event_vector[0] = new PKU_event("mid exam", 0, information, TEACHING_BUILDING, player_number, player_number, requirement, start_time, time_span, property_effect);
+    event_vector[event_number] = new PKU_event("Mid Exam", 0, information, TEACHING_BUILDING, player_number, player_number, requirement, start_time, time_span, property_effect);
+    event_number ++;
+
+    string information0 = "PArticipating in the sports meeting will make you happy\nBut it will intefere with your GPA\n";
+    Event_property_requirement requirement0 = {10, 10, 0, 10};
+    int start_time0 = 30;
+    int time_span0 = 20;
+    Event_property_effect property_effect0 = {+5, -5, 0, 0};
+    event_vector[event_number] = new PKU_event("Sports Meeting", 0, information0, TEACHING_BUILDING, player_number, player_number, requirement0, start_time0, time_span0, property_effect0);
+    event_number ++;  
+
+    string information1 = "It will give you long-term benefit.\nIt will also take some time from you.";
+    Event_property_requirement requirement1 = {10, 10, 0, 10};
+    int start_time1 = 60;
+    int time_span1 = 20;
+    Event_property_effect property_effect1 = {+5, -5, 0, 0};
+    event_vector[event_number] = new PKU_event("Student Work", 0, information1, TEACHING_BUILDING, player_number, player_number, requirement1, start_time1, time_span1, property_effect1);
+    event_number ++;  
+
+    string information2 = "You can get friends and colorful college life.\n";
+    Event_property_requirement requirement2 = {10, 10, 0, 10};
+    int start_time2 = 120;
+    int time_span2 = 20;
+    Event_property_effect property_effect2 = {+5, -5, 0, 0};
+    event_vector[event_number] = new PKU_event("Club Activity", 0, information2, TEACHING_BUILDING, player_number, player_number, requirement2, start_time2, time_span2, property_effect2);
+    event_number ++;
+
+    string information3 = "Final exam is comming!";
+    Event_property_requirement requirement3 = {10, 10, 0, 10};
+    int start_time3 = 150;
+    int time_span3 = 20;
+    Event_property_effect property_effect3 = {+5, -5, 0, 0};
+    event_vector[event_number] = new PKU_event("final exam", 0, information3, TEACHING_BUILDING, player_number, player_number, requirement3, start_time3, time_span3, property_effect3);
     event_number ++;
 }
