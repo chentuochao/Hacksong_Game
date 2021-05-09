@@ -89,6 +89,7 @@ class Player
         Rectangle player_rectangle;
         Color player_color;
 
+        vector<unsigned int> object_list;
         Vector2 position; // Current positions
         double direction; // the direction of human body: degree
 
@@ -118,8 +119,6 @@ class Player
     private:
         // the inside property of player
         Vector2 speed; // walking speed
-
-        vector<unsigned int> object_list;
 
         Player_walk_state walk_state;
         Player_activity_state activity_state;

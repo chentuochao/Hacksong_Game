@@ -29,12 +29,18 @@ void Game::myDrawGame(){
                      player_vector[player_index]->sta=(player_vector[player_index]->sta+1)%20;                               
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
                 }
-
                 // myDrawObjectsToPick();
+                int num = 0;
+                for(vector<unsigned int>::const_iterator citer=player_vector[0]->object_list.begin();citer!=player_vector[0]->object_list.end();citer++)
+                {
+                    DrawTexture(object_vector[*citer]->object_image, 20+50*num, 890 ,WHITE );
+                    num++;
+                }
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-                     DrawTexture(object_vector[obj_index]->object_image,object_vector[obj_index]->size.x,object_vector[obj_index]->size.y,WHITE);                                
+                                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
-                    DrawTexture(object_vector[obj_index]->object_image, 20+40*obj_index, 890 ,WHITE );
+                    //DrawTexture(object_vector[obj_index]->object_image, 20+40*obj_index, 890 ,WHITE );
+
                     std::cout<<object_vector[obj_index]->get_state()<<std::endl;
                     std::cout<<NOT_APPEAR<<std::endl;
                     if(object_vector[obj_index]->get_state() == NOT_APPEAR){
@@ -42,7 +48,8 @@ void Game::myDrawGame(){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
                         // TODO
-                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        //DrawRectangleV(obj_pos,obj_size, BLUE);
+                        DrawTexture(object_vector[obj_index]->object_image, obj_pos.x, obj_pos.y,WHITE);
                         continue;
                     }
                     if (object_vector[obj_index]->get_state() == UNPICKED){
