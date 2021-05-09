@@ -1,6 +1,6 @@
 #include "myDrawGame.h"
 
-void myDrawGame(){
+void Game::myDrawGame(){
     if (!game_over){
         myDrawBackground();
         myDrawLines();
@@ -14,26 +14,26 @@ void myDrawGame(){
     }
 }
 
-void myDrawBackground(){
+void Game::myDrawBackground(){
 
 }
 
-void myDrawLines(){
+void Game::myDrawLines(){
 
 }
 
-void myDrawPlayers(){
+void Game::myDrawPlayers(){
 
 }
 
-void myDrawObjectsToPick(){
+void Game::myDrawObjectsToPick(){
 
 }
 
-void myDrawEventPlace(){
+void Game::myDrawEventPlace(){
 
 }
 
-void myDrawInfo(){
+void Game::myDrawInfo(){
     
 }

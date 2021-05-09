@@ -1,10 +1,10 @@
 #include "game.h"
 
-void myDrawGame();
-void myDrawBackground();
-void myDrawLines();
-void myDrawPlayers();
-void myDrawObjectsToPick();
-void myDrawEventPlace();
-void myDrawInfo();
-void myDrawGameEnd();
+void Game::myDrawGame();
+void Game::myDrawBackground();
+void Game::myDrawLines();
+void Game::myDrawPlayers();
+void Game::myDrawObjectsToPick();
+void Game::myDrawEventPlace();
+void Game::myDrawInfo();
+void Game::myDrawGameEnd();
