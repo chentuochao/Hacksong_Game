@@ -35,9 +35,13 @@ public:
     Game();
     ~Game();
 
+    void init_player_list(void);
+    void init_object_list(void);
+    void init_event_list(void);
     void myInitGame(void);
     void myUpdate(void);
     void myDrawGame(void);
+
 
 
     // Functions from myUpdate.cpp

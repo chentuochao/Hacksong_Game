@@ -1,4 +1,4 @@
-#include "dataset.h"
+#include "game.h"
 #include "raylib.h"
 #include <iostream>
 #include <string>
@@ -6,25 +6,26 @@
 using namespace std;
 
 
-void init_player_list(){
+void Game::init_player_list(){
     // initialize one player
     Image image = LoadImage("p0.png");  
     Rectangle shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color --------------
-    player_vector[0] = new Player( 0,     "name0",  10,   image, shape, RED);
+    Vector2 speed = {0, 0};
+    player_vector[0] = new Player( 0,  "name0",  speed,   image, shape, YELLOW);
     player_number ++;
 
     // initialize one player
     image = LoadImage("p1.png");  
     shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color -------------------
-    player_vector[1] = new Player( 1,     "name1",  10,   image, shape, YELLOW);
+    player_vector[1] = new Player( 1, "name1",  speed,   image, shape, RED);
     player_number ++;
 
 }
 
 
-void init_object_list(){
+void Game::init_object_list(){
     // initialize one object
     Image image = LoadImage("object0.png"); 
     Rectangle range = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
@@ -34,7 +35,7 @@ void init_object_list(){
     object_number ++;
 }
 
-void init_event_list(){
+void Game::init_event_list(){
 
     // initialize one event
     string information = "Midterm exam is beginning in the Teaching Building. Every student should take part in the exam, otherwise your GPA will become 0!";
