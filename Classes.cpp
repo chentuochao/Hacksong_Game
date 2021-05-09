@@ -7,7 +7,7 @@ using namespace std;
 
 /*-----------------------------------   the functions for class "Player" --------------------------------*/
 // initialize the player class
-Player::Player(unsigned int index0,string name0,  float speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0)
+Player::Player(unsigned int index0,string name0,  Vector2 speed0, Image player_image0, Rectangle player_rectangle0, Color player_color0)
 {
     name = name0;
     index = index0;
@@ -44,28 +44,27 @@ void Player::update_activity_state(Player_activity_state new_state){
     activity_state = new_state;
 }
 
-void Player::update_speed(float new_speed){
+void Player::update_speed(Vector2 new_speed){
     speed = new_speed;
 } // update the walking speed
 
-float Player::get_speed(){
+Vector2 Player::get_speed(){
     return speed;
 }// get the walking speed
 
-void Player::update_knowledge(float new_knowledge){
-    property.knowledge += new_knowledge;
+void Player::update_knowledge(double new_knowledge){
+    property.knowledge = new_knowledge;
 } // update the knowledge
 
-void Player::update_happiness(float new_happiness){
-    property.happiness += new_happiness;
-
+void Player::update_happiness(double new_happiness){
+    property.happiness = new_happiness;
 } // update the happiness
 
-void Player::update_GPA(float new_GPA){
+void Player::update_GPA(double new_GPA){
     property.GPA = new_GPA;
 } // update the GPA
 
-void Player::update_reputation(float new_reputation)
+void Player::update_reputation(double new_reputation)
 {
     property.reputation += new_reputation;
 } // update the _reputation
@@ -238,7 +237,7 @@ void PKU_event::begin_competition(){
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));
 }
 
-void PKU_event::check_event_begin(float current_time) // check if in every frame
+bool PKU_event::check_event_begin(double current_time) // check if in every frame
 {
 
     if(current_time >= start_time && current_time <= start_time + time_span && if_begin == false)  if_begin = true;
