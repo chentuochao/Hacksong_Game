@@ -19,7 +19,14 @@ void Game::myDrawGame(){
                     DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                                
                     //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
                 }
+
                 // myDrawObjectsToPick();
+
+                for (int object_index=0; object_index < (int)object_number ; object_index++){
+                    DrawTexture(object_vector[object_index]->object_image,object_vector[object_index]->size.x,object_vector[object_index]->size.y,WHITE);                                
+                    //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
+                }
+
                 // myDrawEventPlace();
                 // myDrawInfo();
             } break;
