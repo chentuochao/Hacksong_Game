@@ -66,7 +66,7 @@ int main(void)
                 {
                     g->currentScreen = 2;
                 }
-                
+                g->framesCounter += 1;
             } break;
             case 2:
             {

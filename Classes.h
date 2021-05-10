@@ -68,7 +68,7 @@ enum Player_activity_state {WALKING, STAND, DOING_EVENT, THROW_OBJECT, FAIL}; //
 class Player
 {
     public:
-        Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0);
+        Player(int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0);
         ~Player();
 
 
@@ -96,20 +96,20 @@ class Player
         void update_reputation(double new_reputation); // update the _reputation
         Player_property get_property(); // get the direction
 
-        bool pick_object(unsigned int object_index); // pick the objects
+        bool pick_object(int object_index); // pick the objects
         void change_object();  // change object
         void update_object_effect(); // update the effect of the object in the hand
 
-        void throw_object(unsigned int other_index); // throw object to other
-        void be_thrown_object(unsigned int object_index); // when be thrwon object
+        void throw_object(int other_index); // throw object to other
+        void be_thrown_object(int object_index); // when be thrwon object
 
-        void draw_player();
+        void draw_player();        
 
     private:
         // the inside property of player
         Vector2 speed; // walking speed
 
-        vector<unsigned int> object_list;
+        vector<int> object_list;
 
         Player_walk_state walk_state;
         Player_activity_state activity_state;
@@ -124,7 +124,7 @@ enum Object_state {NOT_APPEAR, UNPICKED, PICKED, USING, THROWING, THROWED}; // n
 class PKU_object
 {
     public:
-        PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
+        PKU_object(string name0, int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0);
         ~PKU_object();
 
         string name;
@@ -157,7 +157,7 @@ enum Event_place {TEACHING_BUILDING, CAFFE, LIBRARY}; // the place where the eve
 class PKU_event
 {
     public:
-        PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, unsigned int start_time0, unsigned int time_span0, Event_property_effect property_effect0);
+        PKU_event(string name0, int index0, string information0, Event_place place0, int max_human0, int min_human0, Event_property_requirement requirement0, int start_time0, int time_span0, Event_property_effect property_effect0);
         ~PKU_event();
 
         
@@ -172,29 +172,27 @@ class PKU_event
         int min_human;
         int wait_human_num;
 
-        double start_time;
-        double time_span;
+        int start_time;
+        int time_span;
 
         void begin_competition();
-        bool check_event_begin(double current_time);
+        bool check_event_begin(int current_time);
         bool player_want_to_join(Player p);
         void draw_event();
         
-
-    private:
         bool attend_players[MAX_PLAYER];
         Event_property_requirement requirement; 
         Event_property_effect property_effect;
 
 };
 
-extern unsigned int player_number;
+extern int player_number;
 extern Player* player_vector[MAX_PLAYER];
 
-extern unsigned int object_number;
+extern int object_number;
 extern PKU_object* object_vector[MAX_OBJECT];
 
-extern unsigned int event_number;
+extern int event_number;
 extern PKU_event* event_vector[MAX_EVENT];
  
 

@@ -11,7 +11,8 @@
 #include <vector>
 using namespace std;
 
-
+#include <sstream>
+#include <iomanip>
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
@@ -23,6 +24,9 @@ public:
     static const int mapWidth = 1280;
     static const int mapHeight = 720;
     int currentScreen = 0;
+    int framesCounter = 0;
+    bool eventhappen = false;
+    string eventnote;
 
     Camera camera;
     Myclient* sock;
@@ -31,6 +35,8 @@ public:
     bool game_over = 0;
     unsigned int my_index = 0;
     unsigned seed;
+    int current_event_number = 0;
+
 
     static constexpr double KEY_ACCEL = 200; //Acceleration when pressing key
     double max_speed = 100;
@@ -60,6 +66,9 @@ public:
     void myUpdateObjectList(int player_index);
     void myObjectGenerate(int obj_index);
     void myEventCalc(int event_index);
+
+    void myEventRes();
+    string doublttoString(double d);
 
     // Functions from myDrawGame.cpp
     void myDrawBackground();
