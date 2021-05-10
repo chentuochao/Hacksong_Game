@@ -58,6 +58,7 @@ int main(void)
     }
 
 
+
     while (!WindowShouldClose()) 
     {   
         srand(g->framesCounter);
@@ -77,7 +78,70 @@ int main(void)
         g->myDrawGame();
         cout << "begin main loop3!" << endl;
         EndDrawing();
+
+        if (g->framesCounter >= 180*FPS){
+            g->game_result = 0;
+            break;
+        }
+        if (g->game_over == 1) break;
     }
+
+    if (game_result >=0 ){
+        Image im_normal = LoadImage("endings/normal.png");
+        ImageResize(&im_normal, 600, 600);
+        Texture2D normal = LoadTextureFromImage(im_normal);
+
+        Image im_award = LoadImage("endings/award.png");
+        ImageResize(&im_award, 600, 600);
+        Texture2D award = LoadTextureFromImage(im_award);
+
+        Image im_lonelyking = LoadImage("endings/lonelyking.png");
+        ImageResize(&im_lonelyking, 600, 600);
+        Texture2D lonelyking = LoadTextureFromImage(im_lonelyking);
+
+        Image im_depression = LoadImage("endings/depression.png");
+        ImageResize(&im_depression, 600, 600);
+        Texture2D depression = LoadTextureFromImage(im_depression);
+
+        Image im_failexam = LoadImage("endings/failexam.png");
+        ImageResize(&im_failexam, 600, 600);
+        Texture2D failexam = LoadTextureFromImage(im_failexam);
+
+         while (!WindowShouldClose()) 
+        {
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+            switch (g->game_result)
+            {
+                //0 is normal, 1 is award, 2 is lonelyking, 3 is depression, 4 is failexam
+                case 0:
+                {
+                    DrawTexture(normal, 340, 100, WHITE);  
+                }break;
+                case 1:
+                {
+                    DrawTexture(award, 340, 100, WHITE); 
+                }break;
+                case 2:
+                {
+                    DrawTexture(lonelyking, 340, 100, WHITE); 
+                }break;
+                case 3:
+                {
+                    DrawTexture(depression, 340, 100, WHITE); 
+                }break;
+                case 4:
+                {
+                    DrawTexture(failexam, 340, 100, WHITE); 
+                }break;
+            }
+            bool enter = IsKeyPressed(KEY_ENTER);  
+            DrawText("PRESS ENTER TO EXIT", 450, 420, 40, BLACK);
+            if (enter) break;
+            EndDrawing();
+        }
+    }
+
     Keys_info control2;
     memset(&control2, 0, sizeof(Keys_info));
     control2.join =2;

@@ -33,6 +33,7 @@ public:
 
     int framsCounter;
     bool game_over = 0;
+    int game_result = -1;
     unsigned int my_index = 0;
     unsigned seed;
     int current_event_number = 0;
