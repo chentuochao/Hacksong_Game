@@ -8,9 +8,14 @@ using namespace std;
 
 void Game::init_player_list(){
     // initialize one player
-    Image image = LoadImage("icons/man-student.png");  
-    ImageResize(&image, 30, 30);
-    Texture2D Text = LoadTextureFromImage(image);
+    Image image0 = LoadImage("icons/player0.png");ImageResize(&image0, 40, 50);
+    Image image1 = LoadImage("icons/player1.png");ImageResize(&image1, 40, 50);
+    Image image2 = LoadImage("icons/player2.png");ImageResize(&image2, 40, 50);
+    Image image3 = LoadImage("icons/player3.png");ImageResize(&image3, 40, 50);
+    Image image4 = LoadImage("icons/player4.png");ImageResize(&image4, 40, 50);
+
+    vector<Texture2D> Text = {LoadTextureFromImage(image0), LoadTextureFromImage(image1), 
+    LoadTextureFromImage(image2), LoadTextureFromImage(image3), LoadTextureFromImage(image4) };
     Rectangle shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color --------------
     Vector2 speed = {0, 0};
@@ -18,12 +23,9 @@ void Game::init_player_list(){
     player_number = 1;
 
     // initialize one player
-    Image image1 = LoadImage("icons/man-student.png");  
-    ImageResize(&image1, 30, 30);
-    Texture2D Text1 = LoadTextureFromImage(image);
     shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
     //----------------------------index,   name,   speed,  image, shape, color -------------------
-    player_vector[1] = new Player( 1, "name1",  speed,   Text1, shape, RED);
+    player_vector[1] = new Player( 1, "name1",  speed,   Text, shape, RED);
     player_number ++;
 
 }

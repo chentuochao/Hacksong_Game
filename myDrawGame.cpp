@@ -8,8 +8,27 @@ void Game::myDrawGame(){
                 // myDrawLines();
                 // myDrawPlayers()
                              
-                for (int player_index=0; player_index < (int)player_number ; player_index++){
-                    DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                               
+               for (int player_index=0; player_index < (int)player_number ; player_index++)
+                {
+                    int STA=player_vector[player_index]->sta;
+                    if(player_vector[player_index]->get_speed().x>0.1)
+                    {
+                        DrawTexture(player_vector[player_index]->player_image[3+(STA<=9)],
+                        player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);
+                        
+                    }
+                    else if(player_vector[player_index]->get_speed().x<-0.1)
+                    {
+                        DrawTexture(player_vector[player_index]->player_image[1+(STA>9)],
+                        player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);
+                    }
+                    else
+                    {
+                        DrawTexture(player_vector[player_index]->player_image[0],
+                        player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);
+                    }
+                     player_vector[player_index]->sta=(player_vector[player_index]->sta+1)%20;                               
+                    //cerr<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y;
                 }
                 // myDrawObjectsToPick();
                 int num = 0;
