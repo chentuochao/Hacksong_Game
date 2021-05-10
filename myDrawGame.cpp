@@ -44,6 +44,19 @@ void Game::myDrawGame(){
                     DrawText(event_note, 20, 725, 20, BLACK);
                 }
                 // myDrawInfo();
+                for (int player_index=0; player_index < (int)player_number ; player_index++){
+                    player_property one_player_property = player_vector[player_index]->get_property();
+                    const char* r = ("reputation:" + doublttoString(one_player_property.reputation)).data(); 
+                    DrawText(r, 820 + 200*player_index, 725, 20, BLACK);                                     
+                    const char* h = ("happiness:" + doublttoString(one_player_property.happiness)).data();
+                    DrawText(h, 820 + 200*player_index, 700, 20, BLACK);
+                    const char* k = ("knowledge:" + doublttoString(one_player_property.knowledge)).data();
+                    DrawText(k, 820 + 200*player_index, 675, 20, BLACK);
+                    const char* g = ("GPA:" + doublttoString(one_player_property.GPA)).data();  
+                    DrawText(g, 820 + 200*player_index, 650, 20, BLACK);
+
+                    std::cout<<r<<' '<<h<<' '<<k<<' '<<g<<std::endl; 
+                }
             } break;
             case 2:
             {
@@ -59,6 +72,13 @@ void Game::myDrawGame(){
         }
 
 }
+string Game::doublttoString(double d){
+    std::stringstream ss;
+    ss << std::setprecision(4) << d;
+    string str = ss.str();
+    return str;
+}
+
 void Game::myDrawBackground(){
 
 }

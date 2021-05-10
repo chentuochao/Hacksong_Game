@@ -7,7 +7,7 @@ using namespace std;
 
 /*-----------------------------------   the functions for class "Player" --------------------------------*/
 // initialize the player class
-Player::Player(unsigned int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0)
+Player::Player(int index0,string name0,  Vector2 speed0, Texture2D player_image0, Rectangle player_rectangle0, Color player_color0)
 {
     name = name0;
     index = index0;
@@ -53,11 +53,11 @@ Vector2 Player::get_speed(){
 }// get the walking speed
 
 void Player::update_knowledge(double new_knowledge){
-    property.knowledge = new_knowledge;
+    property.knowledge += new_knowledge;
 } // update the knowledge
 
 void Player::update_happiness(double new_happiness){
-    property.happiness = new_happiness;
+    property.happiness += new_happiness;
 } // update the happiness
 
 void Player::update_GPA(double new_GPA){
@@ -74,7 +74,7 @@ Player_property Player::get_property(){
 } // get the direction
 
 
-bool Player::pick_object(unsigned int object_index){
+bool Player::pick_object(int object_index){
     if(object_list.size() >= MAX_OBJECT_PER_PERSON) return false;
     else if(object_list.empty()){
         object_list.push_back(object_index); 
@@ -95,7 +95,7 @@ void Player::change_object(){
 
 void Player::update_object_effect(){
     if(object_in_hand == -1) return;
-    unsigned int hold_index = object_list.at(object_in_hand);
+    int hold_index = object_list.at(object_in_hand);
     PKU_object* hold_object = object_vector[hold_index];
 
     update_knowledge(hold_object->get_self_effect().knowledge_change_rate/FPS);
@@ -103,35 +103,26 @@ void Player::update_object_effect(){
     //update_reputation(temp_object.effect_to_self.my_reputation_change);
 }
 
-void Player::throw_object(unsigned int other_index){
-    if(object_in_hand == -1) return;
-
-    PKU_object* temp_object = object_vector[object_in_hand];
-    // update my property
-    update_knowledge(temp_object->get_interaction_effect().my_knowledge_change);
-    update_happiness(temp_object->get_interaction_effect().my_happiness_change);
-    update_reputation(temp_object->get_interaction_effect().my_reputation_change);
-
-    // remove the object from object_list
-    for (vector<unsigned int>::iterator it = object_list.begin(); it!=object_list.end(); it++){
-        if (*it == object_in_hand){
-            object_list.erase(it);
-            break;
-        }
-    }
-
-    if(object_list.empty()) object_in_hand = -1;
-    else object_in_hand = 0;
-    
-
-    //update others' property
-    if(other_index != -1){
-        player_vector[other_index]->be_thrown_object(object_in_hand);
-    }
-
+void Player::throw_object(int other_index){ 
+    if(object_in_hand == -1) return; 
+    int throw_index = object_list.at(object_in_hand); 
+    PKU_object* temp_object = object_vector[throw_index]; 
+    // update my property 
+    update_knowledge(temp_object->get_interaction_effect().my_knowledge_change); 
+    update_happiness(temp_object->get_interaction_effect().my_happiness_change); 
+    update_reputation(temp_object->get_interaction_effect().my_reputation_change); 
+    // remove the object from object_list 
+    vector<int>::iterator erase_iter = object_list.begin() + object_in_hand; 
+    object_list.erase(erase_iter); 
+    if(object_list.empty()) object_in_hand = -1; 
+    else object_in_hand = 0; 
+    //update others' property 
+    if(other_index != -1){ 
+    player_vector[other_index]->be_thrown_object(throw_index); 
+    } 
 } // throw object to other
 
-void Player::be_thrown_object(unsigned int object_index){
+void Player::be_thrown_object(int object_index){
     PKU_object* temp_object = object_vector[object_index];
     // update my property
     update_knowledge(temp_object->get_interaction_effect().others_knowledge_change);
@@ -146,7 +137,7 @@ void Player::draw_player(){
 }
 
 /*---------------------------------   the functions for class "PKU_object" --------------------------------*/
-PKU_object::PKU_object(string name0, unsigned int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
+PKU_object::PKU_object(string name0, int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
     name = name0;
     index = index0;
     object_image = object_image0;
@@ -190,7 +181,7 @@ void PKU_object::draw_object(){
 
 
 /*---------------------------------------   the functions for class "PKU_event" ---------------------------*/
-PKU_event::PKU_event(string name0, unsigned int index0, string information0, Event_place place0, unsigned int max_human0, unsigned int min_human0, Event_property_requirement requirement0, unsigned int start_time0, unsigned int time_span0, Event_property_effect property_effect0)
+PKU_event::PKU_event(string name0, int index0, string information0, Event_place place0, int max_human0, int min_human0, Event_property_requirement requirement0, int start_time0, int time_span0, Event_property_effect property_effect0)
 {   
     name = name0;
     if_begin = false;
@@ -215,14 +206,14 @@ PKU_event::~PKU_event()
 }
 
 void PKU_event::begin_competition(){
-    vector<unsigned int> competition_list;
+    vector<int> competition_list;
     for(int i = 0; i < MAX_PLAYER; ++i)
     {
         if(attend_players[i] == 1) competition_list.push_back(i);
     }
     
     if(min_human == 1){
-        unsigned int attend_index = competition_list.at(0);
+        int attend_index = competition_list.at(0);
         Player* temp_player = player_vector[attend_index];
         temp_player->update_knowledge(property_effect.knowledge_effect);
         temp_player->update_happiness(property_effect.happiness_effect);
@@ -293,11 +284,11 @@ void PKU_event::draw_event(){
 }
 
 
-unsigned int player_number = 0;
+int player_number = 0;
 Player *player_vector[MAX_PLAYER];
 
-unsigned int object_number = 0; 
+int object_number = 0; 
 PKU_object *object_vector[MAX_OBJECT];
 
-unsigned int event_number = 0;
+int event_number = 0;
 PKU_event *event_vector[MAX_EVENT];

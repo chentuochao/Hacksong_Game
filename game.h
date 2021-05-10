@@ -9,7 +9,8 @@
 #include <vector>
 using namespace std;
 
-
+#include <sstream>
+#include <iomanip>
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
@@ -29,9 +30,9 @@ public:
 
     int framsCounter;
     bool game_over = 0;
-    unsigned int player_number = 0;
-    unsigned int object_number = 0;
-    unsigned int event_number = 0;
+    int player_number = 0;
+    int object_number = 0;
+    int event_number = 0;
     int current_event_number = 0;
 
     static constexpr double KEY_ACCEL = 200; //Acceleration when pressing key
@@ -62,7 +63,8 @@ public:
     void myObjectGenerate(int obj_index);
     void myEventCalc(int event_index);
 
-    void myExamRes(string examtype);
+    void myEventRes();
+    string doublttoString(double d);
 
     // Functions from myDrawGame.cpp
     void myDrawBackground();
