@@ -11,7 +11,7 @@ void Game::init_player_list(){
     for(int i = 0; i < MAX_PLAYER; ++i)
     {
         Image image = LoadImage("icons/man-student.png");  
-        ImageResize(&image, 30, 30);
+        ImageResize(&image, 50, 50);
         Texture2D Text = LoadTextureFromImage(image);
         Rectangle shape = { 0, 0, 50, 50 }; // lefttop-x, lefttop-y, width, height
         //----------------------------index,   name,   speed,  image, shape, color --------------
@@ -26,42 +26,42 @@ void Game::init_player_list(){
 
 void Game::init_object_list(){
     // initialize one object
-    Image image = LoadImage("object.png"); 
+    Image image = LoadImage("./icons/book.png"); ImageResize(&image, 40, 40);
     Rectangle range = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction = {+2, -1, -2, +1, -2, 0}; //my_knowledge_change, my_happiness_change, my_reputation_change, others_knowledge_change, others_happiness_change, others_reputation_change
     object_vector[ object_number] = new PKU_object("MATH", 0, image, range, my_self, my_interaction);
     
     object_number ++;
-    Image image0 = LoadImage("object0.png"); 
+    Image image0 = LoadImage("./icons/books.png"); ImageResize(&image0, 40, 40);
     Rectangle range0 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self0 = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction0 = {+2, -1, -2, +1, -2, 0}; 
     object_vector[object_number] = new PKU_object("ENGLISH", 0, image0, range0, my_self0, my_interaction0);
     object_number ++;
 
-    Image image1 = LoadImage("object1.png"); 
+    Image image1 = LoadImage("./icons/Translation_Services-26-256.png"); ImageResize(&image1, 40, 40);
     Rectangle range1 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self1 = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction1 = {+2, -1, -2, +1, -2, 0}; 
     object_vector[object_number] = new PKU_object("CHINESE", 0, image1, range1, my_self1, my_interaction1);
     object_number ++;
 
-    Image image2 = LoadImage("object2.png"); 
+    Image image2 = LoadImage("./icons/earthquake.png"); ImageResize(&image2, 40, 40);
     Rectangle range2 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self2 = {2, 1}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction2 = {1, 1, 0, 1, 2, 0}; 
     object_vector[object_number] = new PKU_object("dizhengailun", 0, image2, range2, my_self2, my_interaction2);
     object_number ++;
 
-    Image image3 = LoadImage("object3.png"); 
+    Image image3 = LoadImage("./icons/0092_002_sony_playstation_psp_video_console_games_gaming_device-256.png"); ImageResize(&image3, 40, 40);
     Rectangle range3 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self3 = {-1, 3}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction3 = {-1, 3, 0, -2, 2, 0}; 
-    object_vector[object_number] = new PKU_object("PVP", 0, image3, range3, my_self3, my_interaction3);
+    object_vector[object_number] = new PKU_object("PSP", 0, image3, range3, my_self3, my_interaction3);
     object_number ++;
 
-    Image image4 = LoadImage("object4.png"); 
+    Image image4 = LoadImage("./icons/love.png"); ImageResize(&image4, 40, 40);
     Rectangle range4 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
     Self_effect my_self4 = {-1, 2}; //knowledge_change_rate, happiness_change_rate
     // TODO happiness for love should be ramdom

@@ -1,6 +1,6 @@
 #include "game.h"
 
-#define event_frames 60
+#define event_frames 20
 
 void Game::myUpdate(){
     //srand(seed);
@@ -10,6 +10,7 @@ void Game::myUpdate(){
     myGetKeyboardInfo();
 
     for (int player_index=0; player_index < (int)player_number ; player_index++){
+        //cout << "Player:" << player_index << ' ' << player_vector[player_index]->object_in_hand << endl;
         Vector2 accel = myReadPlayerControl(player_index);
         myMovePlayer(player_index,accel);
         myUpdateObjectList(player_index);
@@ -107,8 +108,8 @@ void Game::myGetKeyboardInfo(){
     //cout << int(return_info[0].pick) << endl;
     
     //for(int i = 0; i < player_number; ++i)
-   //{
-   //     cout << i  << " recv " << int(return_info[i].join) <<  ' ' << int(return_info[i].change_object[0]) <<  ' ' <<int(return_info[i].join) <<  ' ' <<int(return_info[i].pick) <<  ' ' <<int(return_info[i].move[0]) << ' ' << int(return_info[i].move[1]) << ' ' << int(return_info[i].move[2])<< ' ' << int(return_info[i].move[3])<< endl;
+    //{
+    //    cout << i  << " recv " << int(return_info[i].join) <<  ' ' << int(return_info[i].change_object[0]) <<  ' ' <<int(return_info[i].join) <<  ' ' <<int(return_info[i].pick) <<  ' ' <<int(return_info[i].move[0]) << ' ' << int(return_info[i].move[1]) << ' ' << int(return_info[i].move[2])<< ' ' << int(return_info[i].move[3])<< endl;
     //}
     
 }
@@ -268,9 +269,9 @@ int Game::check_player_clear(int player_index, Vector2 position){
 }
 
 void Game::myUpdatePlayerState(int player_index){
-    for (int player_index=0; player_index < (int)player_number ; player_index++){
-        player_vector[player_index]->update_object_effect();
-    }
+
+    player_vector[player_index]->update_object_effect();
+    
     if (player_vector[my_index]->get_property().happiness < 0){
         //depression ending
         game_over = 1;
