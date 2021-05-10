@@ -64,6 +64,7 @@ int main(void)
         srand(g->framesCounter);
         //time_seed++;
         g->myUpdate();
+        g->framesCounter += 1;
         g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
         cout << "begin main loop1!" << endl;
