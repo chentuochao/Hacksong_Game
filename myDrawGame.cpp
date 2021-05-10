@@ -37,7 +37,7 @@ void Game::myDrawGame(){
                 for(vector<unsigned int>::const_iterator citer=player_vector[0]->object_list.begin();citer!=player_vector[0]->object_list.end();citer++)
                 {
                     DrawTexture(object_vector[*citer]->object_image, 20+50*num, 890 ,WHITE );
-                    cerr<<"      "<<player_vector[0]->object_in_hand<<" "<<(*citer)<<endl;
+                    //cerr<<"      "<<player_vector[0]->object_in_hand<<" "<<(*citer)<<endl;
                     if((*citer)==player_vector[0]->object_in_hand)DrawRectangle(20+50*num, 890, 20, 20, BLUE);
                     num++;
                 }
@@ -76,7 +76,6 @@ void Game::myDrawGame(){
             case 2:
             {
                 // Draw ending screen
-                    
                 // Draw a transparent black rectangle that covers all screen
                 DrawRectangle(0, 0, screenWidth, screenHeight, Fade(BLACK, 0.4f));
                     
