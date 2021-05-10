@@ -52,7 +52,7 @@ int main(void)
         BeginDrawing();
         ClearBackground(WHITE);
         DrawTexture(cover, 0, 0, WHITE);    
-        DrawText("PRESS ENTER TO START", 450, 420, 40, BLACK);
+        DrawText("PRESS ENTER TO START", 50, 50, 40, BLACK);
         EndDrawing();
         if (enter) break;
     }
@@ -66,15 +66,16 @@ int main(void)
         g->framesCounter += 1;
         g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
-        
+        cout << "begin main loop1!" << endl;
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(WHITE);
         // Draw background (common to all screens)
         DrawTexture(BG, 0, 0, WHITE);    
-        
+        cout << "begin main loop2!" << endl;
         g->myDrawGame();
+        cout << "begin main loop3!" << endl;
         EndDrawing();
     }
     Keys_info control2;
