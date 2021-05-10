@@ -28,7 +28,7 @@ void Game::myUpdate(){
         {           
             //srand(seed);
             object_vector[obj_index]->size.x = rand() % screenWidth;//GetRandomValue(0, screenWidth);
-            object_vector[obj_index]->size.y = rand() % screenHeight;//GetRandomValue(0, screenHeight);
+            object_vector[obj_index]->size.y = rand() % 720; //screenHeight;//GetRandomValue(0, screenHeight);
             cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
             object_vector[obj_index]->update_state(UNPICKED);
         }
