@@ -5,7 +5,7 @@ void Game::myDrawGame(){
             case 0:
             {
                 // Draw title screen
-                DrawText("PRESS ENTER", 450, 420, 40, BLACK);
+                DrawText("PRESS ENTER TO START", 50, 50, 40, BLACK);
 
             } break;
             case 1:

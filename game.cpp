@@ -11,6 +11,10 @@ int main(void)
     InitWindow(g->screenWidth, g->screenHeight, "involution");
     g->myInitGame();
 
+    Image im_cover = LoadImage("endings/cover.png");
+    ImageResize(&im_cover,1280,960);
+    Texture2D cover = LoadTextureFromImage(im_cover);
+
     Image mybg = LoadImage("icons/map.png");
     ImageResize(&mybg, 1280, 720);
     Texture2D BG = LoadTextureFromImage(mybg);
@@ -63,7 +67,8 @@ int main(void)
         BeginDrawing();
         ClearBackground(RAYWHITE);
         // Draw background (common to all screens)
-        DrawTexture(BG, 0, 0, WHITE);    
+        if (g->currentScreen == 0) DrawTexture(cover,0,0,WHITE);
+        else DrawTexture(BG, 0, 0, WHITE);    
         
         g->myDrawGame();
         EndDrawing();
