@@ -53,20 +53,28 @@ Vector2 Player::get_speed(){
 }// get the walking speed
 
 void Player::update_knowledge(double new_knowledge){
-    property.knowledge += new_knowledge;
+    if(property.knowledge + new_knowledge < 0) property.knowledge = 0;
+    else if(property.knowledge + new_knowledge > 100)  property.knowledge = 100;
+    else property.knowledge += new_knowledge;
 } // update the knowledge
 
 void Player::update_happiness(double new_happiness){
-    property.happiness += new_happiness;
+    if(property.happiness + new_happiness < 0) property.happiness = 0;
+    else if(property.happiness + new_happiness > 100) property.happiness = 100;
+    else property.happiness += new_happiness;
 } // update the happiness
 
 void Player::update_GPA(double new_GPA){
-    property.GPA = new_GPA;
+    if(new_GPA > 4) property.GPA = 4;
+    else if(new_GPA < 0) property.GPA = 0;
+    else property.GPA = new_GPA;
 } // update the GPA
 
 void Player::update_reputation(double new_reputation)
 {
-    property.reputation += new_reputation;
+    if(property.reputation + new_reputation < 0) property.reputation = 0;
+    else if(property.reputation + new_reputation > 100) property.reputation = 100;
+    else property.reputation += new_reputation;
 } // update the _reputation
 
 Player_property Player::get_property(){
