@@ -63,7 +63,7 @@ void Game::myDrawGame(){
                 int index_in_hand = player_vector[player_index]->object_in_hand;
                 if(index_in_hand == -1){
                     const char* l = "Object in hand: None";
-                    DrawText(l, 820 + 200*player_index, 625, 20, BLACK);
+                    DrawText(l, 820 + 200*player_index, 750, 20, BLACK);
                 }
                 else{
                     int obj_index = player_vector[player_index]->object_list[index_in_hand];
