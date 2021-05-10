@@ -1,5 +1,6 @@
 #include "game.h"
 
+#define event_frames 60
 
 void Game::myUpdate(){
     //srand(seed);
@@ -58,9 +59,9 @@ void Game::myUpdate(){
     //关于要刷新的事件
     for (int event_index=0; event_index < event_number ; event_index++){
         //TODO
-        int one_start_time = 10 * event_vector[event_index]->start_time;
-        int one_time_span = 10 * event_vector[event_index]->time_span;
-        int eventalarm = 20*10;
+        int one_start_time = event_frames * event_vector[event_index]->start_time;
+        int one_time_span = event_frames * event_vector[event_index]->time_span;
+        int eventalarm = 20*event_frames;
         if(framesCounter < one_start_time && framesCounter > one_start_time - eventalarm){
             eventnote = event_vector[event_index]->name + " will start!";
             eventhappen = true;
@@ -311,7 +312,7 @@ void Game::myUpdateObjectList(int player_index){
         }
         player_vector[player_index]->throw_object(daomeidan);
     }
-    else if(return_info[player_index].change_object[0] ==1|| return_info[player_index].change_object[1] == 1){
+    else if(return_info[player_index].change_object[0] ==1 || return_info[player_index].change_object[1] == 1){
         player_vector[player_index]->change_object();
     }
 }

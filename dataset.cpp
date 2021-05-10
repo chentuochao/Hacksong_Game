@@ -28,42 +28,42 @@ void Game::init_object_list(){
     // initialize one object
     Image image = LoadImage("object.png"); 
     Rectangle range = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self = {5, -5}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction = {+2, -1, -2, +1, -2, 0}; //my_knowledge_change, my_happiness_change, my_reputation_change, others_knowledge_change, others_happiness_change, others_reputation_change
     object_vector[ object_number] = new PKU_object("MATH", 0, image, range, my_self, my_interaction);
     
     object_number ++;
     Image image0 = LoadImage("object0.png"); 
     Rectangle range0 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self0 = {5, -5}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self0 = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction0 = {+2, -1, -2, +1, -2, 0}; 
     object_vector[object_number] = new PKU_object("ENGLISH", 0, image0, range0, my_self0, my_interaction0);
     object_number ++;
 
     Image image1 = LoadImage("object1.png"); 
     Rectangle range1 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self1 = {5, -5}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self1 = {2, -2}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction1 = {+2, -1, -2, +1, -2, 0}; 
     object_vector[object_number] = new PKU_object("CHINESE", 0, image1, range1, my_self1, my_interaction1);
     object_number ++;
 
     Image image2 = LoadImage("object2.png"); 
     Rectangle range2 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self2 = {5, 3}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self2 = {2, 1}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction2 = {1, 1, 0, 1, 2, 0}; 
     object_vector[object_number] = new PKU_object("dizhengailun", 0, image2, range2, my_self2, my_interaction2);
     object_number ++;
 
     Image image3 = LoadImage("object3.png"); 
     Rectangle range3 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self3 = {-3, 6}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self3 = {-1, 3}; //knowledge_change_rate, happiness_change_rate
     Interaction_effect my_interaction3 = {-1, 3, 0, -2, 2, 0}; 
     object_vector[object_number] = new PKU_object("PVP", 0, image3, range3, my_self3, my_interaction3);
     object_number ++;
 
     Image image4 = LoadImage("object4.png"); 
     Rectangle range4 = { 0, 0, 20, 20 }; // lefttop-x, lefttop-y, width, height
-    Self_effect my_self4 = {-3, 5}; //knowledge_change_rate, happiness_change_rate
+    Self_effect my_self4 = {-1, 2}; //knowledge_change_rate, happiness_change_rate
     // TODO happiness for love should be ramdom
     //srand(seed);
     Interaction_effect my_interaction4 = {-1,  (rand() % 20) - 10, 0, +1, (rand() % 20) - 10, 0}; 
