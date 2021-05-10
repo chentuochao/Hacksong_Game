@@ -229,7 +229,7 @@ int Game::check_player_clear(int player_index, Vector2 position){
 
 void Game::myUpdatePlayerState(int player_index){
     for (int player_index=0; player_index < (int)player_number ; player_index++){
-        // player_vector[player_index]->update_object_effect();
+        player_vector[player_index]->update_object_effect();
     }
 
 }
