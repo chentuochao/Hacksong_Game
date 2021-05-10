@@ -20,6 +20,7 @@ Game::Game(){
     player_number = data0.player_number;
     my_index = data0.index;
     seed = data0.random_seed;
+    //srand(seed);
     cout << "Total " << player_number << " players attend this game, my index is " << my_index << endl;
     memset(&my_key, 0, sizeof(Keys_info));
 }
@@ -42,7 +43,8 @@ int main(void)
     //Detect window close button or ESC key
     
     while (!WindowShouldClose()) 
-    {
+    {   
+        srand(g->framsCounter);
         g->myUpdate();
         switch (g->currentScreen)
         {

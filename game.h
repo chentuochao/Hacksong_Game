@@ -7,6 +7,7 @@
 
 #include "Classes.h"
 #include "client.h"
+#include <stdlib.h>
 #include <vector>
 using namespace std;
 

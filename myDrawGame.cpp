@@ -5,7 +5,7 @@ void Game::myDrawGame(){
             case 0:
             {
                 // Draw title screen
-                std::cout<<"draw0:\n";   
+                //std::cout<<"draw0:\n";   
                 DrawText("PRESS ENTER", 450, 420, 40, BLACK);
 
             } break;
@@ -21,8 +21,8 @@ void Game::myDrawGame(){
                 }
                 // myDrawObjectsToPick();
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-                    std::cout<<object_vector[obj_index]->get_state()<<std::endl;
-                    std::cout<<NOT_APPEAR<<std::endl;
+                    //std::cout<<object_vector[obj_index]->get_state()<<std::endl;
+                    //std::cout<<NOT_APPEAR<<std::endl;
                     /*
                     if(object_vector[obj_index]->get_state() == NOT_APPEAR){
                         object_vector[obj_index]->update_state(UNPICKED);

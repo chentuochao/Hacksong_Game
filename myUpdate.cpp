@@ -2,7 +2,8 @@
 
 
 void Game::myUpdate(){
-    std::cout<<"Debugging:\n";
+    //srand(seed);
+    //std::cout<<"Debugging:\n";
     //关于人
     
     myGetKeyboardInfo();
@@ -24,8 +25,10 @@ void Game::myUpdate(){
 
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
-            object_vector[obj_index]->size.x = GetRandomValue(0, screenWidth);
-            object_vector[obj_index]->size.y = GetRandomValue(0, screenHeight);
+            //srand(seed);
+            object_vector[obj_index]->size.x = rand() % screenWidth;//GetRandomValue(0, screenWidth);
+            object_vector[obj_index]->size.y = rand() % screenHeight;//GetRandomValue(0, screenHeight);
+            cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
             object_vector[obj_index]->update_state(UNPICKED);
         }
         if (object_vector[obj_index]->get_state() == THROWING){
@@ -80,10 +83,10 @@ void Game::myGetKeyboardInfo(){
     sock->recvall(  (char*)return_info,   MAX_PLAYER*sizeof(Keys_info));
     //cout << int(return_info[0].pick) << endl;
     
-    for(int i = 0; i < player_number; ++i)
-    {
-        cout << i  << " recv " << int(return_info[i].join) <<  ' ' << int(return_info[i].change_object[0]) <<  ' ' <<int(return_info[i].join) <<  ' ' <<int(return_info[i].pick) <<  ' ' <<int(return_info[i].move[0]) << ' ' << int(return_info[i].move[1]) << ' ' << int(return_info[i].move[2])<< ' ' << int(return_info[i].move[3])<< endl;
-    }
+    //for(int i = 0; i < player_number; ++i)
+   //{
+   //     cout << i  << " recv " << int(return_info[i].join) <<  ' ' << int(return_info[i].change_object[0]) <<  ' ' <<int(return_info[i].join) <<  ' ' <<int(return_info[i].pick) <<  ' ' <<int(return_info[i].move[0]) << ' ' << int(return_info[i].move[1]) << ' ' << int(return_info[i].move[2])<< ' ' << int(return_info[i].move[3])<< endl;
+    //}
     
 }
 
