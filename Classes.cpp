@@ -132,6 +132,7 @@ void Player::throw_object(int other_index){
     if(other_index != -1){ 
         player_vector[other_index]->be_thrown_object(throw_index); 
         object_vector[throw_index]->update_state(THROWING);
+        object_vector[throw_index]->chasing_player = other_index;
     } 
     else{
         object_vector[throw_index]->update_state(NOT_APPEAR);

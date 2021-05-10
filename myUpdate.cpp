@@ -26,7 +26,7 @@ void Game::myUpdate(){
     double chase_speed = 4*max_speed;
 
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-        cout << obj_index << endl;
+        cout << obj_index << ' ' <<  object_vector[obj_index]->get_state() << endl;
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
             //srand(seed);
@@ -35,6 +35,7 @@ void Game::myUpdate(){
             cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
             object_vector[obj_index]->update_state(UNPICKED);
         }
+        
 
         if (object_vector[obj_index]->get_state() == THROWING){
             // If it chased down the target
@@ -43,6 +44,7 @@ void Game::myUpdate(){
             double t_y = player_vector[target]->position.y + 0.5*player_vector[target]->player_rectangle.height;
             double my_x = object_vector[obj_index]->size.x+ 0.5*object_vector[obj_index]->size.width;
             double my_y = object_vector[obj_index]->size.y + 0.5*object_vector[obj_index]->size.height;
+            
             double dist = (t_x-my_x)*(t_x-my_x)+(t_y-my_y)*(t_y-my_y);
             if (dist <= chase_down){
                 object_vector[obj_index]->update_state(NOT_APPEAR);
