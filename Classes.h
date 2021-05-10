@@ -114,11 +114,11 @@ class Player
 
         void draw_player();
 
+        vector<unsigned int> object_list;
     private:
         // the inside property of player
         Vector2 speed; // walking speed
 
-        vector<unsigned int> object_list;
 
         Player_walk_state walk_state;
         Player_activity_state activity_state;

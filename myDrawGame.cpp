@@ -12,6 +12,14 @@ void Game::myDrawGame(){
                     DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                               
                 }
                 // myDrawObjectsToPick();
+                int num = 0;
+                for(vector<unsigned int>::const_iterator citer=player_vector[0]->object_list.begin();citer!=player_vector[0]->object_list.end();citer++)
+                {
+                    DrawTexture(object_vector[*citer]->object_image, 20+50*num, 890 ,WHITE );
+                    cerr<<"      "<<player_vector[0]->object_in_hand<<" "<<(*citer)<<endl;
+                    if((*citer)==player_vector[0]->object_in_hand)DrawRectangle(20+50*num, 890, 20, 20, BLUE);
+                    num++;
+                }
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
                     if(object_vector[obj_index]->get_state() == NOT_APPEAR){
                         object_vector[obj_index]->update_state(UNPICKED);
