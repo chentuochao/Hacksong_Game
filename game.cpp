@@ -33,7 +33,7 @@ int main(void)
     InitWindow(g->screenWidth, g->screenHeight, "involution");
     g->myInitGame();
 
-    Image mybg = LoadImage("icons/map.png");
+    Image mybg = LoadImage("endings/map.png");
     ImageResize(&mybg, 1280, 720);
     Texture2D BG = LoadTextureFromImage(mybg);
 
@@ -42,51 +42,35 @@ int main(void)
     //Main game loop
     //Detect window close button or ESC key
     //int time_seed = 0;
+
+    Image im_cover = LoadImage("endings/cover.png");
+    ImageResize(&im_cover,1280,960);
+    Texture2D cover = LoadTextureFromImage(im_cover);
+    while (true){
+        //starting page
+        bool enter = IsKeyPressed(KEY_ENTER);
+        BeginDrawing();
+        ClearBackground(WHITE);
+        DrawTexture(cover, 0, 0, WHITE);    
+        DrawText("PRESS ENTER TO START", 450, 420, 40, BLACK);
+        EndDrawing();
+        if (enter) break;
+    }
+
+
     while (!WindowShouldClose()) 
     {   
         srand(g->framesCounter);
         //time_seed++;
         g->myUpdate();
         g->framesCounter += 1;
-        switch (g->currentScreen)
-        {
-            case 0:
-            {
-                // Press enter to change to gameplay screen
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    g->currentScreen = 1;
-                }
-                
-            } break;
-            case 1:
-            {
-                
-                
-                // Press enter to change to ending screen
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                    g->currentScreen = 2;
-                }
-                
-            } break;
-            case 2:
-            {
-                // Press enter to change to title screen
-                if (IsKeyPressed(KEY_ENTER))
-                {
-                   g->currentScreen = 0;
-                }
-      
-            } break;
-            default: break;
-        }
+        g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
         
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(WHITE);
         // Draw background (common to all screens)
         DrawTexture(BG, 0, 0, WHITE);    
         
