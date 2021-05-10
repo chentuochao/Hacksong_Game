@@ -2,16 +2,9 @@
 void Game::myDrawGame(){
     switch (currentScreen)
         {
-            case 0:
-            {
-                // Draw title screen
-                DrawText("PRESS ENTER", 450, 420, 40, BLACK);
-
-            } break;
             case 1:
             {
                  // Draw gameplay screen
-                DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
                 // myDrawLines();
                 // myDrawPlayers()
                              
@@ -25,14 +18,16 @@ void Game::myDrawGame(){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
                         // TODO
-                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        //DrawRectangleV(obj_pos,obj_size, BLUE);
+                        DrawTexture(object_vector[obj_index]->object_image, obj_pos.x, obj_pos.y,WHITE);
                         continue;
                     }
                     if (object_vector[obj_index]->get_state() == UNPICKED){
                         Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
                         Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
                         //TODO
-                        DrawRectangleV(obj_pos,obj_size, BLUE);
+                        //DrawRectangleV(obj_pos,obj_size, BLUE);
+                        DrawTexture(object_vector[obj_index]->object_image, obj_pos.x, obj_pos.y,WHITE);
                         const char* obj_name = object_vector[obj_index]->name.data();
                         DrawText(obj_name, obj_pos.x, obj_pos.y+20, 20, BLACK);
                     }
@@ -44,6 +39,10 @@ void Game::myDrawGame(){
                     DrawText(event_note, 20, 725, 20, BLACK);
                 }
                 // myDrawInfo();
+                
+                DrawRectangle(170, 760, player_vector[0]->get_property().knowledge*9, 30, RED);
+                DrawRectangle(170, 800, player_vector[0]->get_property().GPA*9, 30, BLUE);
+                DrawRectangle(170, 840, player_vector[0]->get_property().happiness*9, 30, YELLOW);
             } break;
             case 2:
             {
