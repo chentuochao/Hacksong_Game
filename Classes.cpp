@@ -137,7 +137,7 @@ void Player::draw_player(){
 }
 
 /*---------------------------------   the functions for class "PKU_object" --------------------------------*/
-PKU_object::PKU_object(string name0, int index0, Image object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
+PKU_object::PKU_object(string name0, int index0, Texture2D object_image0, Rectangle range0, Self_effect effect_to_self0, Interaction_effect effect_to_other0){
     name = name0;
     index = index0;
     object_image = object_image0;
