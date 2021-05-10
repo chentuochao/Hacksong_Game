@@ -1,6 +1,6 @@
 #include "game.h"
 
-#define event_frames 20
+#define event_frames 10
 
 void Game::myUpdate(){
     //srand(seed);
@@ -14,8 +14,10 @@ void Game::myUpdate(){
         Vector2 accel = myReadPlayerControl(player_index);
         myMovePlayer(player_index,accel);
         myUpdateObjectList(player_index);
+        cout << "ddddd1111" << endl;  
         myUpdatePlayerState(player_index);
-        //判断玩家是否死亡等状态                                      
+        cout << "ddddd" << endl;                                      
+        //判断玩家是否死亡等状态
     }
     // unpicked objects position calculation
     // TODO avoid events and players
@@ -24,7 +26,7 @@ void Game::myUpdate(){
     double chase_speed = 4*max_speed;
 
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-
+        cout << obj_index << endl;
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
             //srand(seed);
@@ -33,6 +35,7 @@ void Game::myUpdate(){
             cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
             object_vector[obj_index]->update_state(UNPICKED);
         }
+
         if (object_vector[obj_index]->get_state() == THROWING){
             // If it chased down the target
             int target = object_vector[obj_index]->chasing_player;
@@ -57,6 +60,7 @@ void Game::myUpdate(){
         }
 
     }
+    cout << "ddddd3" << endl; 
     //关于要刷新的事件
     for (int event_index=0; event_index < event_number ; event_index++){
         //TODO
@@ -272,13 +276,15 @@ void Game::myUpdatePlayerState(int player_index){
 
     player_vector[player_index]->update_object_effect();
     
-    if (player_vector[my_index]->get_property().happiness < 0){
-        //depression ending
+    if (player_vector[my_index]->get_property().happiness <= 0){
+        //depression 
+        cout << "depression" << endl;
         game_over = 1;
         game_result = 3;
     }
-    if (player_vector[my_index]->get_property().GPA < 1.0){
+    if (player_vector[my_index]->get_property().GPA <= 1.0){
         //failtest ending
+        cout << "low GPA: " << player_vector[my_index]->get_property().GPA  << endl;
         game_over = 1;
         game_result = 4;
     }
@@ -333,7 +339,9 @@ void Game::myUpdateObjectList(int player_index){
                 break;
             }
         }
+        cout << "daomeidan is " << daomeidan << endl;
         player_vector[player_index]->throw_object(daomeidan);
+        cout << "finish throw is " << daomeidan << endl;
     }
     else if(return_info[player_index].change_object[0] ==1 || return_info[player_index].change_object[1] == 1){
         player_vector[player_index]->change_object();
@@ -367,6 +375,12 @@ void Game::myEventRes(){
         player_vector[player_index]->update_happiness(happinessrate*event_vector[current_event_number]->property_effect.happiness_effect);
         player_vector[player_index]->update_reputation(reputationrate*event_vector[current_event_number]->property_effect.reputation_effect);
         if(current_event_number == 0 || current_event_number == 4){
+            if(player_number == 1){
+                double examscore = GetRandomValue(84,100);
+                double playerGPA = 4.0 - 3*(100-examscore)*(100-examscore)/1600;
+                cout << examscore << ' ' << playerGPA << endl;
+                break;
+            }
             double personscore = 80+(knowledgerate - 1/player_number)*20*player_number/(player_number-1);
             double examscore = GetRandomValue(80,personscore);
             double playerGPA = 4.0 - 3*(100-examscore)*(100-examscore)/1600;

@@ -25,7 +25,7 @@ Player::Player(int index0,string name0,  Vector2 speed0, Texture2D player_image0
     attack_range = default_range;
     property.knowledge = 50;
     property.happiness = 50;
-    property.GPA = 2.0;
+    property.GPA = 4.0;
     property.reputation = 50;
 
 }
@@ -113,9 +113,10 @@ void Player::update_object_effect(){
 
 void Player::throw_object(int other_index){ 
     if(object_in_hand == -1) return; 
+    cout << object_in_hand << ' ' << object_list.size() <<endl;
     int throw_index = object_list.at(object_in_hand); 
     PKU_object* temp_object = object_vector[throw_index]; 
-    // update my property 
+    // update my property
     update_knowledge(temp_object->get_interaction_effect().my_knowledge_change); 
     update_happiness(temp_object->get_interaction_effect().my_happiness_change); 
     update_reputation(temp_object->get_interaction_effect().my_reputation_change); 
@@ -124,6 +125,7 @@ void Player::throw_object(int other_index){
     vector<int>::iterator erase_iter = object_list.begin() + object_in_hand; 
     object_list.erase(erase_iter); 
     cout << object_in_hand << ' ' << throw_index << endl;
+
     if(object_list.empty()) object_in_hand = -1; 
     else object_in_hand = 0; 
     //update others' property 

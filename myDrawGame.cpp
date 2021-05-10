@@ -36,7 +36,7 @@ void Game::myDrawGame(){
                 DrawText("GPA", 10, 800, 30, WHITE);  
                 DrawText("Happiness", 10, 840, 30, WHITE); 
                 DrawRectangle(170, 760, player_vector[my_index]->get_property().knowledge*9, 30, RED);
-                DrawRectangle(170, 800, player_vector[my_index]->get_property().GPA*9, 30, BLUE);
+                DrawRectangle(170, 800, player_vector[my_index]->get_property().GPA*9*12.5, 30, BLUE);
                 DrawRectangle(170, 840, player_vector[my_index]->get_property().happiness*9, 30, YELLOW);
                 int num = 0;
                 

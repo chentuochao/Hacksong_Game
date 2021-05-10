@@ -3,14 +3,15 @@
 
 Game::Game(){
     // init the network setttings
-    char ip_add[20] = {'\0'};
-	memset(ip_add, 0, 20);
+    char ip_add[20] = "192.168.1.196";
+
+	//memset(ip_add, 0, 20);
 	
-	int port = 0;
-	cout << "Please input the ip: " << endl;
-	cin >> ip_add;
-	cout << ip_add << " Please input the port number: " << endl;
-	cin >> port;
+	int port = 8888;
+	//cout << "Please input the ip: " << endl;
+	//cin >> ip_add;
+	//cout << ip_add << " Please input the port number: " << endl;
+	//cin >> port;
     
     sock = new Myclient(ip_add, port);
     
@@ -76,8 +77,9 @@ int main(void)
         g->myDrawGame();
         EndDrawing();
 
-        if (g->framesCounter >= 180*FPS){
+        if (g->framesCounter >= 540*FPS){
             g->game_result = 0;
+            cout << "Time OUT " << g-> framesCounter << endl;
             break;
         }
         if (g->game_over == 1) break;
