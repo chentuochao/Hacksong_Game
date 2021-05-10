@@ -247,7 +247,7 @@ void PKU_event::begin_competition(){
     }
     else if(name == string("club activity")){
         // to be continue
-    }
+    }*/
     // reset human number
     wait_human_num = 0;
     memset(attend_players, 0, MAX_PLAYER * sizeof(bool));
