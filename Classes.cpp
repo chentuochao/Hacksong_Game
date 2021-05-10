@@ -120,17 +120,19 @@ void Player::throw_object(int other_index){
     update_happiness(temp_object->get_interaction_effect().my_happiness_change); 
     update_reputation(temp_object->get_interaction_effect().my_reputation_change); 
     // remove the object from object_list 
+    cout << object_in_hand << ' ' << throw_index << endl;
     vector<int>::iterator erase_iter = object_list.begin() + object_in_hand; 
     object_list.erase(erase_iter); 
+    cout << object_in_hand << ' ' << throw_index << endl;
     if(object_list.empty()) object_in_hand = -1; 
     else object_in_hand = 0; 
     //update others' property 
     if(other_index != -1){ 
         player_vector[other_index]->be_thrown_object(throw_index); 
-        object_vector[object_in_hand]->update_state(THROWING);
+        object_vector[throw_index]->update_state(THROWING);
     } 
     else{
-        object_vector[object_in_hand]->update_state(NOT_APPEAR);
+        object_vector[throw_index]->update_state(NOT_APPEAR);
     }
 
 } // throw object to other

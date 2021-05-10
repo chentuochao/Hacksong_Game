@@ -41,11 +41,13 @@ int main(void)
     SetTargetFPS(60);
     //Main game loop
     //Detect window close button or ESC key
-    
+    //int time_seed = 0;
     while (!WindowShouldClose()) 
     {   
-        srand(g->framsCounter);
+        srand(g->framesCounter);
+        //time_seed++;
         g->myUpdate();
+        g->framesCounter += 1;
         switch (g->currentScreen)
         {
             case 0:
@@ -66,7 +68,7 @@ int main(void)
                 {
                     g->currentScreen = 2;
                 }
-                g->framesCounter += 1;
+                
             } break;
             case 2:
             {
