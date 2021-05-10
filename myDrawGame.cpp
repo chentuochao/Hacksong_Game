@@ -15,9 +15,17 @@ void Game::myDrawGame(){
                 DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
                 // myDrawLines();
                 // myDrawPlayers()
+
+                
                              
                 for (int player_index=0; player_index < (int)player_number ; player_index++){
-                    DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE);                               
+                    if(return_info[my_index].throwing){
+                        double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
+                        double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+                        DrawCircle(my_x, my_y, 200, RED);    
+                    }
+        
+                    DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE); 
                 }
                 // myDrawObjectsToPick();
                 for (int obj_index=0; obj_index < (int)object_number ; obj_index++){

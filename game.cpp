@@ -67,16 +67,13 @@ int main(void)
         g->framesCounter += 1;
         g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
-        cout << "begin main loop1!" << endl;
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(WHITE);
         // Draw background (common to all screens)
         DrawTexture(BG, 0, 0, WHITE);    
-        cout << "begin main loop2!" << endl;
         g->myDrawGame();
-        cout << "begin main loop3!" << endl;
         EndDrawing();
 
         if (g->framesCounter >= 180*FPS){
@@ -86,7 +83,7 @@ int main(void)
         if (g->game_over == 1) break;
     }
 
-    if (game_result >=0 ){
+    if (g->game_result >=0 ){
         Image im_normal = LoadImage("endings/normal.png");
         ImageResize(&im_normal, 600, 600);
         Texture2D normal = LoadTextureFromImage(im_normal);

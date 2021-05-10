@@ -25,7 +25,7 @@ Player::Player(int index0,string name0,  Vector2 speed0, Texture2D player_image0
     attack_range = default_range;
     property.knowledge = 50;
     property.happiness = 50;
-    property.GPA = 0.0;
+    property.GPA = 2.0;
     property.reputation = 50;
 
 }
