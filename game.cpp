@@ -138,7 +138,7 @@ int main(void)
             }
             bool enter = IsKeyPressed(KEY_ENTER);  
             DrawText("PRESS ENTER TO EXIT", 450, 420, 40, BLACK);
-        if (enter) break;
+            if (enter) break;
             EndDrawing();
         }
     }

@@ -270,6 +270,16 @@ void Game::myUpdatePlayerState(int player_index){
     for (int player_index=0; player_index < (int)player_number ; player_index++){
         player_vector[player_index]->update_object_effect();
     }
+    if (player_vector[myindex]->get_property().happiness < 0){
+        //depression ending
+        game_over = 1;
+        game_result = 3;
+    }
+    if (player_vector[myindex]->get_property().GPA < 1.0){
+        //failtest ending
+        game_over = 1;
+        game_result = 4;
+    }
 
 }
 
@@ -278,6 +288,7 @@ void Game::myUpdateObjectList(int player_index){
     double pickup_range = 100*100;
     double throw_range = 400*400;
     if (return_info[player_index].pick == 1){
+        DrawCircle(my_x, my_y, 100, BLUE);
         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
         for (int i=0; i < (int)object_number; i++){
@@ -296,6 +307,7 @@ void Game::myUpdateObjectList(int player_index){
     else if (return_info[player_index].throwing == 1){
         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
+        DrawCircle(my_x, my_y, 400, RED);
         int daomeidan = -1;
         for (int i=0; i < (int)player_number; i++){
             // Check if two people are close enough
