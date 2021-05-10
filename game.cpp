@@ -46,7 +46,7 @@ int main(void)
     Image im_cover = LoadImage("endings/cover.png");
     ImageResize(&im_cover,1280,960);
     Texture2D cover = LoadTextureFromImage(im_cover);
-    while (true){
+    while (!WindowShouldClose()){
         //starting page
         bool enter = IsKeyPressed(KEY_ENTER);
         BeginDrawing();

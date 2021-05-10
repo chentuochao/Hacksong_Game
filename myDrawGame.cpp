@@ -50,6 +50,7 @@ void Game::myDrawGame(){
                 // myDrawInfo();
                 for (int player_index=0; player_index < (int)player_number ; player_index++){
                     player_property one_player_property = player_vector[player_index]->get_property();
+
                     const char* r = ("reputation:" + doublttoString(one_player_property.reputation)).data(); 
                     DrawText(r, 820 + 200*player_index, 725, 20, BLACK);                                     
                     const char* h = ("happiness:" + doublttoString(one_player_property.happiness)).data();
@@ -58,8 +59,11 @@ void Game::myDrawGame(){
                     DrawText(k, 820 + 200*player_index, 675, 20, BLACK);
                     const char* g = ("GPA:" + doublttoString(one_player_property.GPA)).data();  
                     DrawText(g, 820 + 200*player_index, 650, 20, BLACK);
-
-                    std::cout<<r<<' '<<h<<' '<<k<<' '<<g<<std::endl; 
+                    int index_in_hand = player_vector[player_index]->object_in_hand;
+                    int obj_index = player_vector[player_index]->object_list[index_in_hand];
+                    PKU_object* temp_obj = object_vector[obj_index];
+                    const char* l = ("Object in hand:" + temp_obj->name).data();
+                    DrawText(l, 820 + 200*player_index, 625, 20, BLACK);
                 }
             } break;
             case 2:

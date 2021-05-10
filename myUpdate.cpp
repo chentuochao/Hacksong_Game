@@ -311,6 +311,9 @@ void Game::myUpdateObjectList(int player_index){
         }
         player_vector[player_index]->throw_object(daomeidan);
     }
+    else if(return_info[player_index].change_object[0] ==1|| return_info[player_index].change_object[1] == 1){
+        player_vector[player_index]->change_object();
+    }
 }
 
 void Game::myObjectGenerate(int obj_index){
