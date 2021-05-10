@@ -27,12 +27,10 @@ void Game::myUpdate(){
     }
     //关于要刷新的事件
     for (int event_index=0; event_index < event_number ; event_index++){
+        //TODO
         int one_start_time = 10 * event_vector[event_index]->start_time;
         int one_time_span = 10 * event_vector[event_index]->time_span;
         int eventalarm = 20*10;
-        std::cout<<"current state\n";
-        std::cout<<one_start_time<<std::endl;
-        std::cout<<framesCounter<<std::endl;
         if(framesCounter < one_start_time && framesCounter > one_start_time - eventalarm){
             eventnote = event_vector[event_index]->name + " will start!";
             eventhappen = true;
@@ -44,6 +42,11 @@ void Game::myUpdate(){
             current_event_number =  event_index;    
             break;   
         }     
+        else if(framesCounter == one_start_time + one_time_span){
+            myEventRes();
+            eventhappen = false;
+            break;
+        }
         else{
             eventhappen = false;
         } 
@@ -285,4 +288,33 @@ void Game::myObjectGenerate(int obj_index){
 
 void Game::myEventCalc(int event_index){
 
+}
+
+void Game::myEventRes(){
+	double all_knowledge = 0.0; // 0-100, visible to player
+	double all_happiness = 0.0; // 0-100, visible to player
+    double all_GPA = 0.0; // 0-4.0, visible to player
+    double all_reputation = 0.0; // 0-100, invisible to player
+    for (int player_index = 0; player_index < (int)player_number ; player_index++){
+        all_reputation += player_vector[player_index]->get_property().reputation;
+        all_happiness += player_vector[player_index]->get_property().happiness;
+        all_knowledge += player_vector[player_index]->get_property().knowledge;
+    }
+    for (int player_index=0; player_index < (int)player_number ; player_index++){
+        double knowledgerate = player_vector[player_index]->get_property().knowledge/all_knowledge;
+        double reputationrate = player_vector[player_index]->get_property().reputation/all_reputation;
+        double happinessrate = player_vector[player_index]->get_property().happiness/all_happiness;
+        
+        player_vector[player_index]->update_knowledge(knowledgerate*event_vector[current_event_number]->property_effect.knowledge_effect);       
+        player_vector[player_index]->update_happiness(happinessrate*event_vector[current_event_number]->property_effect.happiness_effect);
+        player_vector[player_index]->update_reputation(reputationrate*event_vector[current_event_number]->property_effect.reputation_effect);
+        if(current_event_number == 0 || current_event_number == 4){
+            double personscore = 80+(knowledgerate - 1/player_number)*20*player_number/(player_number-1);
+            double examscore = GetRandomValue(80,personscore);
+            double playerGPA = 4.0 - 3*(100-examscore)*(100-examscore)/1600;
+            player_vector[player_index]->update_GPA(playerGPA);           
+        }
+
+
+    }
 }
