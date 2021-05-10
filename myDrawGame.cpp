@@ -10,6 +10,8 @@ void Game::myDrawGame(){
                              
                for (int player_index=0; player_index < (int)player_number ; player_index++)
                 {
+                    //
+                    //cerr<<"          "<<player_vector[player_index]->position.x<<" "<<player_vector[player_index]->position.y<<endl;
                     int STA=player_vector[player_index]->sta;
                     if(player_vector[player_index]->get_speed().x>0.1)
                     {
