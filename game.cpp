@@ -58,14 +58,12 @@ int main(void)
     }
 
 
-    int frame_count = 0;
+
     while (!WindowShouldClose()) 
     {   
         srand(g->framesCounter);
         //time_seed++;
         g->myUpdate();
-        frame_count++;
-        frame_count++;
         g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
         cout << "begin main loop1!" << endl;
@@ -80,7 +78,7 @@ int main(void)
         cout << "begin main loop3!" << endl;
         EndDrawing();
 
-        if (frame_count >= 180*FPS){
+        if (g->framesCounter >= 180*FPS){
             g->game_result = 0;
             break;
         }
