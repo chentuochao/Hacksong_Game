@@ -226,6 +226,16 @@ int Game::check_player_clear(int player_index, Vector2 position){
 
 void Game::myUpdatePlayerState(int player_index){
     //判断玩家是否死亡等状态
+    if (player_vector[myindex]->get_property().happiness < 0){
+        //depression ending
+        game_over = 1;
+        game_result = 3;
+    }
+    if (player_vector[myindex]->get_property().GPA < 1.0){
+        //failtest ending
+        game_over = 1;
+        game_result = 4;
+    }
 
 }
 

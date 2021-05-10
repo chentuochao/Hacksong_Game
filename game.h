@@ -25,6 +25,9 @@ public:
     bool eventhappen = false;
     string eventnote;
 
+    int myindex = 0;// This will be changed in net version
+    int game_result = 0; //0 is normal, 1 is award, 2 is lonelyking, 3 is depression, 4 is failexam
+
     Camera camera;
 
     int framsCounter;
