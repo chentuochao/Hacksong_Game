@@ -46,7 +46,7 @@ int main(void)
     Image im_cover = LoadImage("endings/cover.png");
     ImageResize(&im_cover,1280,960);
     Texture2D cover = LoadTextureFromImage(im_cover);
-    while (true){
+    while (!WindowShouldClose()){
         //starting page
         bool enter = IsKeyPressed(KEY_ENTER);
         BeginDrawing();
@@ -68,15 +68,16 @@ int main(void)
         frame_count++;
         g->currentScreen = 1;//don't care about it
         //----------------------------------------------------------------------------------
-        
+        cout << "begin main loop1!" << endl;
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
         ClearBackground(WHITE);
         // Draw background (common to all screens)
         DrawTexture(BG, 0, 0, WHITE);    
-        
+        cout << "begin main loop2!" << endl;
         g->myDrawGame();
+        cout << "begin main loop3!" << endl;
         EndDrawing();
 
         if (frame_count >= 180*FPS){
