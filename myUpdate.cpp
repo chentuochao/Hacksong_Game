@@ -14,9 +14,7 @@ void Game::myUpdate(){
         Vector2 accel = myReadPlayerControl(player_index);
         myMovePlayer(player_index,accel);
         myUpdateObjectList(player_index);
-        cout << "ddddd1111" << endl;  
         myUpdatePlayerState(player_index);
-        cout << "ddddd" << endl;                                      
         //判断玩家是否死亡等状态
     }
     // unpicked objects position calculation
@@ -62,7 +60,6 @@ void Game::myUpdate(){
         }
 
     }
-    cout << "ddddd3" << endl; 
     //关于要刷新的事件
     for (int event_index=0; event_index < event_number ; event_index++){
         //TODO

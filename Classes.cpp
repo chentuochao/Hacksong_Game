@@ -120,6 +120,7 @@ void Player::throw_object(int other_index){
     update_knowledge(temp_object->get_interaction_effect().my_knowledge_change); 
     update_happiness(temp_object->get_interaction_effect().my_happiness_change); 
     update_reputation(temp_object->get_interaction_effect().my_reputation_change); 
+
     // remove the object from object_list 
     cout << object_in_hand << ' ' << throw_index << endl;
     vector<int>::iterator erase_iter = object_list.begin() + object_in_hand; 
@@ -131,6 +132,8 @@ void Player::throw_object(int other_index){
     //update others' property 
     if(other_index != -1){ 
         player_vector[other_index]->be_thrown_object(throw_index); 
+        object_vector[throw_index]->size.x = position.x;
+        object_vector[throw_index]->size.y = position.y;
         object_vector[throw_index]->update_state(THROWING);
         object_vector[throw_index]->chasing_player = other_index;
     } 

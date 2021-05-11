@@ -17,18 +17,18 @@ void Game::myDrawGame(){
                 // myDrawPlayers()
 
 
-                             
+                // draw the circle around player when throwing the oject
                 for (int player_index=0; player_index < (int)player_number ; player_index++){
                     if(return_info[player_index].throwing){
                         double my_x = player_vector[player_index]->position.x + 0.5*player_vector[player_index]->player_rectangle.width;
                         double my_y = player_vector[player_index]->position.y + 0.5*player_vector[player_index]->player_rectangle.height;
                         DrawCircle(my_x, my_y, 200, RED);    
                     }
-        
+                    //draw the player
                     DrawTexture(player_vector[player_index]->player_image,player_vector[player_index]->position.x,player_vector[player_index]->position.y,WHITE); 
                 }
 
-
+                // draw the bar for the players' property
                 DrawRectangle(0, 750, 640, 130, Fade(BLACK, 0.8f));
                 DrawRectangle(0, 880, 1280, 70, Fade(BLACK, 0.9f));
                 DrawRectangle(640, 750, 1280, 130, BLACK);
@@ -40,6 +40,7 @@ void Game::myDrawGame(){
                 DrawRectangle(170, 840, player_vector[my_index]->get_property().happiness*9, 30, YELLOW);
                 int num = 0;
                 
+                // draw the object in player's hand
                 for(vector<int>::const_iterator citer = player_vector[0]->object_list.begin(); citer!=player_vector[0]->object_list.end();citer++)
                 {
                     Texture2D text = LoadTextureFromImage(object_vector[*citer]->object_image);
@@ -72,9 +73,19 @@ void Game::myDrawGame(){
                         const char* obj_name = object_vector[obj_index]->name.data();
                         DrawText(obj_name, obj_pos.x, obj_pos.y+20, 20, BLACK);
                     }
+                    if (object_vector[obj_index]->get_state() == THROWING){
+                        Vector2 obj_pos = {object_vector[obj_index]->size.x,object_vector[obj_index]->size.y};
+                        Vector2 obj_size = {object_vector[obj_index]->size.width,object_vector[obj_index]->size.height};
+                        //TODO
+                        //DrawRectangleV(obj_pos, obj_size, BLUE);
+                        Texture2D text = LoadTextureFromImage(object_vector[obj_index]->object_image);
+                        DrawTexture(text, obj_pos.x, obj_pos.y,WHITE);
+                        //const char* obj_name = object_vector[obj_index]->name.data();
+                        //DrawText(obj_name, obj_pos.x, obj_pos.y+20, 20, BLACK);
+                    }
                 }
 
-                // myDrawEventPlace();
+                // draw the event text, myDrawEventPlace();
                 if(eventhappen){
                     const char* event_note = eventnote.data();
                     DrawText(event_note, 20, 725, 20, RED);
