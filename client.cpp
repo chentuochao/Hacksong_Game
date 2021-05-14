@@ -95,7 +95,7 @@ int Myclient::recvall(char * buffer0, int length)
 			return -1;
 		}
 		else {
-			cerr << "Failed to receive message from client!Error code: " << GetLastError() << endl;
+			cerr << "Failed to receive message from client!Error code: " << endl;
 			return -1;
 		}
 	}

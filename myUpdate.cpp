@@ -24,13 +24,13 @@ void Game::myUpdate(){
     double chase_speed = 4*max_speed;
 
     for (int obj_index=0; obj_index < (int)object_number ; obj_index++){
-        cout << obj_index << ' ' <<  object_vector[obj_index]->get_state() << endl;
+        //cout << obj_index << ' ' <<  object_vector[obj_index]->get_state() << endl;
         if (object_vector[obj_index]->get_state() == NOT_APPEAR)
         {           
             //srand(seed);
             object_vector[obj_index]->size.x = rand() % screenWidth;//GetRandomValue(0, screenWidth);
             object_vector[obj_index]->size.y = rand() % 720; //screenHeight;//GetRandomValue(0, screenHeight);
-            cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
+            //cout << obj_index << ' ' << object_vector[obj_index]->size.x  << ' ' << object_vector[obj_index]->size.y << endl;
             object_vector[obj_index]->update_state(UNPICKED);
         }
         

@@ -3,7 +3,7 @@
 
 Game::Game(){
     // init the network setttings
-    char ip_add[20] = "10.0.70.55";
+    char ip_add[20] = "10.0.2.15";
 
 	//memset(ip_add, 0, 20);
 	
