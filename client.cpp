@@ -4,7 +4,7 @@
 using namespace std;
 
 
-
+#if defined(_WIN32) // Windows
 WSASession::WSASession()
 {
 	int ret_val = WSAStartup(MAKEWORD(2, 2), &data);
@@ -20,6 +20,7 @@ WSASession::~WSASession()
 {
 	WSACleanup();
 }
+
 
 Myclient::Myclient(const char* ip_add, int port)
 {
@@ -49,6 +50,35 @@ Myclient::~Myclient()
 	closesocket(client_sock);
 	cout << "Socket closed..." << endl;
 }
+
+#else
+Myclient::Myclient(const char* ip_add, int port)
+{
+	struct sockaddr_in server_addr;
+	if ((client_sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) { 
+        perror("socket init error!"); 
+        exit(1); 
+    }
+
+    server_addr.sin_family = AF_INET; 
+    server_addr.sin_port = htons(port); 
+    server_addr.sin_addr.s_addr = inet_addr(ip_add); 
+    bzero(&(server_addr.sin_zero),sizeof(server_addr.sin_zero)); 
+
+    if (connect(client_sock, (struct sockaddr *)&server_addr,sizeof(struct sockaddr_in)) == -1){
+        perror("connect error"); 
+        exit(1);
+    } 
+	cout << "Client started successfully..." << endl;
+}
+
+Myclient::~Myclient()
+{
+	close(client_sock);
+	cout << "Socket closed..." << endl;
+}
+
+#endif
 
 int Myclient::recvall(char * buffer0, int length)
 {

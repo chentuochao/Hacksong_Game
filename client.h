@@ -7,9 +7,21 @@
 #include<iostream>
 #include<cstring>
 using namespace std;
-#pragma comment(lib, "ws2_32.lib")
 
 #define MSG_BUF_SIZE 1204
+
+#if defined(_WIN32) // Windows
+//WSA set up
+#pragma comment(lib, "ws2_32.lib")
+class WSASession
+{
+public:
+	WSASession();
+	~WSASession();
+private:
+	WSAData data;
+};
+#endif
 
 // data struct for recv data and send data
 typedef struct send_data0
@@ -29,15 +41,6 @@ typedef struct keys_info
     char join;
 }Keys_info;
 
-//WSA set up
-class WSASession
-{
-public:
-	WSASession();
-	~WSASession();
-private:
-	WSAData data;
-};
 
 
 class Myclient{

@@ -28,7 +28,9 @@ Game::Game(){
 
 int main(void)
 {
+    #if defined(_WIN32) // Windows
     WSASession Session;
+    #endif
     // init the game and screen settings
     Game *g = new Game();
     InitWindow(g->screenWidth, g->screenHeight, "involution");
